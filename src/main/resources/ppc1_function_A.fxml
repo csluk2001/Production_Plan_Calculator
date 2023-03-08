@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="581.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.main.java.functionAController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" text="New" />
+            <MenuItem mnemonicParsing="false" text="Open…" />
+            <Menu mnemonicParsing="false" text="Open Recent" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Close" />
+            <MenuItem mnemonicParsing="false" text="Save" />
+            <MenuItem mnemonicParsing="false" text="Save As…" />
+            <MenuItem mnemonicParsing="false" text="Revert" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Preferences…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Undo" />
+            <MenuItem mnemonicParsing="false" text="Redo" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Cut" />
+            <MenuItem mnemonicParsing="false" text="Copy" />
+            <MenuItem mnemonicParsing="false" text="Paste" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Select All" />
+            <MenuItem mnemonicParsing="false" text="Unselect All" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane fx:id="label_col_heading2" maxHeight="-1.0" maxWidth="-1.0" prefHeight="519.0" prefWidth="788.0" VBox.vgrow="ALWAYS">
+         <children>
+            <TextField fx:id="Num_Week" layoutX="222.0" layoutY="95.0" onInputMethodTextChanged="#getDefaultValue" prefHeight="25.0" prefWidth="99.0" promptText="Num_Week" />
+            <Label fx:id="data_input_heading1" layoutX="143.0" layoutY="59.0" text="DATA INPUT" />
+            <Label fx:id="data_input_caption2a" layoutX="133.0" layoutY="147.0" text="Labor (minutes)" />
+            <Label fx:id="form_heading1" layoutX="230.0" layoutY="8.0" text="A2.2.A Annual Forecast by Gross Profit">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="data_input_caption1" layoutX="44.0" layoutY="99.0" text="Number of weeks (&lt;16):" />
+            <TextField fx:id="Cap_Labor" layoutX="222.0" layoutY="143.0" onInputMethodTextChanged="#getDefaultValue" prefHeight="25.0" prefWidth="99.0" promptText="Cap_Labor" />
+            <Label fx:id="data_input_caption2" layoutX="43.0" layoutY="128.0" text="Capacity Of:" />
+            <Label fx:id="data_input_caption2b" layoutX="154.0" layoutY="174.0" text="Grape (Kgs)" />
+            <TextField fx:id="Cap_Grape" layoutX="222.0" layoutY="170.0" onInputMethodTextChanged="#getDefaultValue" prefHeight="25.0" prefWidth="99.0" promptText="Cap_Grade" />
+            <Label fx:id="data_input_caption3" layoutX="42.0" layoutY="194.0" text="Price of Product:" />
+            <Label fx:id="data_input_caption3a" layoutX="136.0" layoutY="220.0" text="Rose (A$/Litre)" />
+            <TextField fx:id="Prc_Rose" layoutX="221.0" layoutY="216.0" onInputMethodTextChanged="#getDefaultValue" prefHeight="25.0" prefWidth="99.0" promptText="Prc_Rose" />
+            <Label fx:id="data_input_caption3b" layoutX="126.0" layoutY="248.0" text="P-Noir (A$/Litre)" />
+            <TextField fx:id="Prc_Noir" layoutX="221.0" layoutY="244.0" onInputMethodTextChanged="#getDefaultValue" prefHeight="25.0" prefWidth="99.0" promptText="Prc_Noir" />
+            <Label fx:id="data_input_caption4" layoutX="41.0" layoutY="284.0" text="Total fixed costs of the year (A$): " />
+            <TextField fx:id="Fixed_Costs" layoutX="222.0" layoutY="281.0" onInputMethodTextChanged="#getDefaultValue" prefHeight="25.0" prefWidth="99.0" promptText="Fixed_Costs" />
+            <Label fx:id="opt_result_heading1" layoutX="552.0" layoutY="59.0" text="OPTIMIZED RESULT" />
+            <Button fx:id="button_run1" layoutX="357.0" layoutY="138.0" mnemonicParsing="false" onAction="#toclick" prefHeight="35.0" prefWidth="79.0" style="-fx-background-color: green;" text="RUN ==&gt;" textFill="#f2e538">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+            <Button fx:id="button_exit1" layoutX="357.0" layoutY="220.0" mnemonicParsing="false" onAction="#toexit" prefHeight="35.0" prefWidth="79.0" style="-fx-background-color: brown;" text="^ EXIT " textFill="#fcfc08">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+            <TextField fx:id="or_Prod_Vol_Rose" accessibleRole="TEXT" alignment="CENTER_RIGHT" editable="false" layoutX="635.0" layoutY="140.0" opacity="0.84" prefHeight="25.0" prefWidth="99.0" promptText="999,999" style="-fx-background-color: grey;">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <effect>
+                  <ColorAdjust />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="CROSSHAIR" />
+               </cursor>
+            </TextField>
+            <Label fx:id="opt_r_caption1" layoutX="487.0" layoutY="107.0" text="Production Volume (Litre)" />
+            <Label fx:id="opt_r_caption1a" layoutX="575.0" layoutY="142.0" text="Rose:" />
+            <Label fx:id="opt_r_caption1b" layoutX="575.0" layoutY="171.0" text="P-Noir:" />
+            <TextField fx:id="or_Prod_Vol_Noir" accessibleRole="TEXT" alignment="CENTER_RIGHT" editable="false" layoutX="635.0" layoutY="167.0" opacity="0.84" prefHeight="25.0" prefWidth="99.0" promptText="999,999" style="-fx-background-color: grey;">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <effect>
+                  <ColorAdjust />
+               </effect>
+            </TextField>
+            <Label fx:id="opt_r_caption1c" layoutX="575.0" layoutY="204.0" text="Total:" />
+            <TextField fx:id="or_Prod_Vol_Total" accessibleRole="TEXT" alignment="CENTER_RIGHT" editable="false" layoutX="635.0" layoutY="200.0" opacity="0.84" prefHeight="25.0" prefWidth="99.0" promptText="999,999" style="-fx-background-color: grey;">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <effect>
+                  <ColorAdjust />
+               </effect>
+            </TextField>
+            <Line fx:id="HLine4" endX="100.0" layoutX="636.0" layoutY="196.0" startX="-61.0" />
+            <Label fx:id="opt_r_caption2" layoutX="484.0" layoutY="246.0" text="Total Gross Profit (A$):" />
+            <Label fx:id="opt_r_caption3" layoutX="486.0" layoutY="273.0" text="Profit Margin/Revenue (%):" />
+            <TextField fx:id="or_Gross_Profit" accessibleRole="TEXT" alignment="CENTER_RIGHT" editable="false" layoutX="635.0" layoutY="241.0" opacity="0.84" prefHeight="25.0" prefWidth="99.0" promptText="999,999" style="-fx-background-color: grey;">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <effect>
+                  <ColorAdjust />
+               </effect>
+            </TextField>
+            <TextField fx:id="or_Profit_Margin" accessibleRole="TEXT" alignment="CENTER_RIGHT" editable="false" layoutX="635.0" layoutY="269.0" opacity="0.84" prefHeight="25.0" prefWidth="99.0" promptText="99.99" style="-fx-background-color: grey;">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <effect>
+                  <ColorAdjust />
+               </effect>
+            </TextField>
+            <Line fx:id="HLine3" endX="642.0" endY="1.5" layoutX="122.0" layoutY="318.0" startX="-100.0" />
+            <Line fx:id="HLine2" endX="643.0" layoutX="122.0" layoutY="85.0" startX="-100.0" />
+            <Line fx:id="VLine1" endX="-100.0" endY="160.0" layoutX="122.0" layoutY="159.0" startX="-100.0" startY="-113.0" />
+            <Line fx:id="HLine_1" endX="643.0" layoutX="122.0" layoutY="46.0" startX="-100.0" />
+            <Line fx:id="VLine2" endX="-100.0" endY="160.0" layoutX="864.0" layoutY="159.0" startX="-100.0" startY="-113.0" />
+            <Line fx:id="vLine3" endX="61.0" endY="-23.5" layoutX="335.0" layoutY="108.0" startX="61.0" startY="-60.0" />
+            <Spinner fx:id="or_scroll_text1" layoutX="21.0" layoutY="358.0" prefHeight="137.0" prefWidth="744.0" />
+            <Label fx:id="label_sysmsg1" layoutX="22.0" layoutY="341.0" text="System Messages / Warnings / Reminders" />
+         </children>
+    </AnchorPane>
+      <TextField />
+      <TextField prefHeight="0.0" prefWidth="469.0" />
+  </children>
+</VBox>
