@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Main extends Application {
 
@@ -14,8 +15,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        stage=primaryStage;
-        scene=new Scene(FXMLLoader.load(getClass().getResource("/ppc1.fxml")));
+        stage = primaryStage;
+        scene = new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/frontend/applicationMainMenu.fxml"))));
         stage.setScene(scene);
         stage.show();
     }
