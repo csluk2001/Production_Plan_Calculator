@@ -1,0 +1,41 @@
+.label {
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+}
+
+.text-field {
+    -fx-border-color: rgba(68, 115, 197, 255);
+    -fx-text-fill: #000;
+}
+
+#WeeklyReviewToOptimizedRevenuePortal, #DisplayTitle, #DisplayOptRoseValue, #DisplayOptNoirValue, #DisplayTotalValue, #DisplayTotalRevenueValue, #DisplayLabourSurplusValue, #DisplayGrapeSurplusValue {
+    -fx-background-color: rgb(124, 124, 124)
+}
+
+#WeeklyReviewToOptimizedRevenueTitle {
+    -fx-background-color: rgb(4, 28, 92);
+    -fx-text-fill: #FFF;
+    -fx-font-size: 18;
+}
+
+#NumYearItemName, #CapLabourItemName, #CapGrapeItemName, #PrcRoseItemName, #PrcNoirItemName {
+    -fx-text-fill: #FFF;
+}
+
+#DisplayPortal {
+    -fx-background-color: #000;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+}
+
+#DisplayOptRoseLabel, #DisplayOptNoirLabel, #DisplayTotalLabel, #DisplayProductionVolumeTitle, #DisplayTotalRevenueTitle, #DisplayTotalRevenueUnit, #DisplayLabourSurplusTitle, #DisplayLabourSurplusUnit, #DisplayGrapeSurplusTitle, #DisplayGrapeSurplusUnit, #FieldValidationTitle, #FieldValidationCheckDetails {
+    -fx-text-fill: rgb(165, 171, 29);
+}
+
+#DisplayProductionVolumePane {
+    -fx-border-color: rgba(68, 115, 197, 255);
+}
+
+#DisplayProductionVolumeTitle {
+    -fx-background-color: #000;
+}
