@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="580.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.main.java.controllers.WeeklyReviewByRevenueAndBackordersController">
+    <AnchorPane fx:id="WeeklyReviewToOptimizedRevenueAndBackordersPortal" prefHeight="580.0" prefWidth="788.0" VBox.vgrow="ALWAYS">
+        <!-- Title -->
+        <Label fx:id="WeeklyReviewToOptimizedRevenueAndBackordersTitle" alignment="CENTER" layoutX="22.0" layoutY="14.0" prefHeight="35.0" prefWidth="744.0" text="A2.2.C Weekly Review by Revenue and Backorders">
+        </Label>
+
+        <!-- NumYear -->
+        <Label fx:id="NumYearItemNameFunC" layoutX="40.0" layoutY="85.0" prefHeight="25.0" prefWidth="85.0" text="WeekOfYear">
+        </Label>
+        <TextField fx:id="NumYearValueFunC" alignment="CENTER_RIGHT" layoutX="140.0" layoutY="85.0" prefHeight="25.0" prefWidth="85.0" promptText="0" />
+        <Label fx:id="NumYearUnitFunC" layoutX="235.0" layoutY="85.0" prefHeight="25.0" prefWidth="70.0" text="Week(s)">
+        </Label>
+
+        <!-- CapLabour -->
+        <Label fx:id="CapLabourItemNameFunC" layoutX="40.0" layoutY="115.0" prefHeight="25.0" prefWidth="85.0" text="Cap_Labour">
+        </Label>
+        <TextField fx:id="CapLaborValueFunC" alignment="CENTER_RIGHT" layoutX="140.0" layoutY="115.0" prefHeight="25.0" prefWidth="85.0" promptText="0" />
+        <Label fx:id="CapLabourUnitFunC" layoutX="235.0" layoutY="115.0" prefHeight="25.0" prefWidth="70.0" text="Minute(s)">
+        </Label>
+
+        <!-- CapGrape -->
+        <Label fx:id="CapGrapeItemNameFunC" layoutX="40.0" layoutY="145.0" prefHeight="25.0" prefWidth="85.0" text="Cap_Grape">
+        </Label>
+        <TextField fx:id="CapGrapeValueFunC" alignment="CENTER_RIGHT" layoutX="140.0" layoutY="145.0" prefHeight="25.0" prefWidth="85.0" promptText="0" />
+        <Label fx:id="CapGrapeUnitFunC" layoutX="235.0" layoutY="145.0" prefHeight="25.0" prefWidth="70.0" text="Kgs">
+        </Label>
+
+        <!-- PrcRose -->
+        <Label fx:id="PrcRoseItemNameFunC" layoutX="40.0" layoutY="175.0" prefHeight="25.0" prefWidth="85.0" text="Prc_Rose">
+        </Label>
+        <TextField fx:id="PrcRoseValueFunC" alignment="CENTER_RIGHT" layoutX="140.0" layoutY="175.0" prefHeight="25.0" prefWidth="85.0" promptText="0" />
+        <Label fx:id="PrcRoseUnitFunC" layoutX="235.0" layoutY="175.0" prefHeight="25.0" prefWidth="70.0" text="A$">
+        </Label>
+
+        <!-- PrcRose -->
+        <Label fx:id="PrcNoirItemNameFunC" layoutX="40.0" layoutY="205.0" prefHeight="25.0" prefWidth="85.0" text="Prc_Noir">
+        </Label>
+        <TextField fx:id="PrcNoirValueFunC" alignment="CENTER_RIGHT" layoutX="140.0" layoutY="205.0" prefHeight="25.0" prefWidth="85.0" promptText="0" />
+        <Label fx:id="PrcNoirUnitFunC" layoutX="235.0" layoutY="205.0" prefHeight="25.0" prefWidth="70.0" text="A$">
+        </Label>
+
+        <Button fx:id="button_run_FunC" layoutX="317.0" layoutY="112.0" mnemonicParsing="false" onAction="#runCalculationFunC" prefHeight="35.0" prefWidth="65.0" style="-fx-background-color: green;" text="RUN" textFill="#f2e538">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
+        <Button fx:id="button_exit_FunC" layoutX="317.0" layoutY="189.0" mnemonicParsing="false" onAction="#returnToMainFunC" prefHeight="35.0" prefWidth="65.0" style="-fx-background-color: brown;" text="EXIT" textFill="#fcfc08">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
+
+        <!-- Display Portal -->
+        <AnchorPane fx:id="DisplayPortalFunC" layoutX="394.0" layoutY="62.0" prefHeight="250.0" prefWidth="365.0">
+            <Label fx:id="DisplayTitleFunC" alignment="CENTER" layoutX="88.0" layoutY="14.0" prefHeight="25.0" prefWidth="180.0" text="Optimized Solution" />
+            <AnchorPane fx:id="DisplayProductionVolumePaneFunC" layoutX="17.0" layoutY="55.0" prefHeight="68.0" prefWidth="321.0">
+                <Label fx:id="DisplayOptRoseLabelFunC" alignment="CENTER" layoutX="21.0" layoutY="14.0" prefHeight="25.0" prefWidth="64.0" text="Opt_Rose" />
+                <Label fx:id="DisplayOptNoirLabelFunC" alignment="CENTER" layoutX="128.0" layoutY="14.0" prefHeight="25.0" prefWidth="64.0" text="Opt_Noir" />
+                <Label fx:id="DisplayTotalLabelFunC" alignment="CENTER" layoutX="237.0" layoutY="14.0" prefHeight="25.0" prefWidth="64.0" text="Total" />
+                <Label fx:id="DisplayOptRoseValueFunC" alignment="CENTER" layoutX="10.0" layoutY="42.0" prefHeight="25.0" prefWidth="85.0" text="0" />
+                <Label fx:id="DisplayOptNoirValueFunC" alignment="CENTER" layoutX="118.0" layoutY="42.0" prefHeight="25.0" prefWidth="85.0" text="0" />
+                <Label fx:id="DisplayTotalValueFunC" alignment="CENTER" layoutX="226.0" layoutY="42.0" prefHeight="25.0" prefWidth="85.0" text="0" />
+            </AnchorPane>
+
+            <Label fx:id="DisplayProductionVolumeTitleFunC" alignment="CENTER" layoutX="88.0" layoutY="45.0" prefHeight="25.0" prefWidth="180.0" text="Production Volume (Litre)" />
+
+            <Label fx:id="DisplayTotalRevenueTitleFunC" alignment="CENTER" layoutX="28.0" layoutY="143.0" prefHeight="25.0" prefWidth="120.0" text="Total Revenue: A$" />
+            <Label fx:id="DisplayTotalRevenueValueFunC" alignment="CENTER" layoutX="158.0" layoutY="143.0" prefHeight="25.0" prefWidth="112.0" text="0" />
+
+            <Label fx:id="DisplayBackOrderFulfilmentTitleFunC" alignment="CENTER" layoutX="29.0" layoutY="173.0" prefHeight="25.0" prefWidth="139.0" text="Backorder Fulfilment:" />
+            <Label fx:id="DisplayBackorderFulfilmentValueFunC" alignment="CENTER" layoutX="177.0" layoutY="173.0" prefHeight="25.0" prefWidth="75.0" text="N/A" />
+
+            <Label fx:id="DisplayBackorderFulfilmentMeaningFunC" alignment="CENTER" layoutX="22.0" layoutY="198.0" prefHeight="50.0" prefWidth="321.0" />
+        </AnchorPane>
+      <Label fx:id="BkoRoseItemNameFunC" layoutX="40.0" layoutY="235.0" prefHeight="25.0" prefWidth="85.0" text="Bko_Rose" />
+      <TextField fx:id="BkoRoseValueFunC" alignment="CENTER_RIGHT" layoutX="140.0" layoutY="235.0" prefHeight="25.0" prefWidth="85.0" promptText="0" />
+      <Label fx:id="BkoRoseUnitFunC" layoutX="235.0" layoutY="235.0" prefHeight="25.0" prefWidth="70.0" text="Lites" />
+      <Label fx:id="BkoNoirItemNameFunC" layoutX="40.0" layoutY="265.0" prefHeight="25.0" prefWidth="85.0" text="Bko_Noir" />
+      <TextField fx:id="BkoNoirValueFunC" alignment="CENTER_RIGHT" layoutX="140.0" layoutY="265.0" prefHeight="25.0" prefWidth="85.0" promptText="0" />
+      <Label fx:id="BkoNoirUnitFunC" layoutX="235.0" layoutY="265.0" prefHeight="25.0" prefWidth="70.0" text="Lites" />
+    </AnchorPane>
+    <AnchorPane layoutX="18.0" layoutY="326.0" prefHeight="229.0" prefWidth="757.0">
+        <children>
+            <Line endX="657.0" layoutX="100.0" startX="-100.0" />
+            <Label fx:id="FieldValidationTitleFunC" prefHeight="50.0" prefWidth="120.0" text="Field Validation: " />
+            <Line endX="658.0" endY="48.6666259765625" layoutX="100.0" startX="-100.0" startY="48.666656494140625" />
+            <Label fx:id="FieldValidationCheckDetailsFunC" layoutX="120.0" prefHeight="50.0" prefWidth="210.0" />
+            <Label fx:id="FieldValidationErrorMessageFunC" layoutX="1.0" layoutY="57.0" prefHeight="165.0" prefWidth="750.0" />
+        </children>
+    </AnchorPane>
+</AnchorPane>
