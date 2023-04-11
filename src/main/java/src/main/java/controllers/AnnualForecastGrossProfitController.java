@@ -1,4 +1,4 @@
-package src.main.java;
+package src.main.java.controllers;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -10,8 +10,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
+import src.main.java.Main;
 
-public class functionAController {
+public class AnnualForecastGrossProfitController {
 
     @FXML
     private TextField Cap_Grape;
@@ -137,6 +138,7 @@ public class functionAController {
     void buttonpressed(ActionEvent event) {
 
     }
+
     public void initialize() {
         Num_Week.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -163,13 +165,15 @@ public class functionAController {
             }
         });
     }
+
     @FXML
     private void getDefaultValue(InputMethodEvent event) {
 
 
     }
 
-    public void toexit(ActionEvent actionEvent) {Main.stage.setScene(Main.scene);
+    public void toexit(ActionEvent actionEvent) {
+        Main.stage.setScene(Main.scene);
     }
 
     public void toclick(ActionEvent actionEvent) {
