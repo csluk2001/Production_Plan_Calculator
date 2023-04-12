@@ -74,10 +74,10 @@
 
             <Label fx:id="DisplayProductionVolumeTitleFunC" alignment="CENTER" layoutX="88.0" layoutY="45.0" prefHeight="25.0" prefWidth="180.0" text="Production Volume (Litre)" />
 
-            <Label fx:id="DisplayTotalRevenueTitleFunC" alignment="CENTER" layoutX="28.0" layoutY="143.0" prefHeight="25.0" prefWidth="120.0" text="Total Revenue: A$" />
+            <Label fx:id="DisplayTotalRevenueTitleFunC" alignment="CENTER" layoutX="15.0" layoutY="143.0" prefHeight="25.0" prefWidth="120.0" text="Total Revenue: A$" />
             <Label fx:id="DisplayTotalRevenueValueFunC" alignment="CENTER" layoutX="158.0" layoutY="143.0" prefHeight="25.0" prefWidth="112.0" text="0" />
 
-            <Label fx:id="DisplayBackOrderFulfilmentTitleFunC" alignment="CENTER" layoutX="29.0" layoutY="173.0" prefHeight="25.0" prefWidth="139.0" text="Backorder Fulfilment:" />
+            <Label fx:id="DisplayBackOrderFulfilmentTitleFunC" alignment="CENTER" layoutX="15.0" layoutY="173.0" prefHeight="25.0" prefWidth="146.0" text="Backorder Fulfilment:" />
             <Label fx:id="DisplayBackorderFulfilmentValueFunC" alignment="CENTER" layoutX="177.0" layoutY="173.0" prefHeight="25.0" prefWidth="75.0" text="N/A" />
 
             <Label fx:id="DisplayBackorderFulfilmentMeaningFunC" alignment="CENTER" layoutX="22.0" layoutY="198.0" prefHeight="50.0" prefWidth="321.0" />

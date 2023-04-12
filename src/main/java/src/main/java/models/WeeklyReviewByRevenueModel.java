@@ -7,7 +7,7 @@ import src.main.java.services.WeeklyReviewByRevenueService;
 @Getter
 @Setter
 public class WeeklyReviewByRevenueModel extends RevenueCalculationModel {
-    private WeeklyReviewByRevenueService weeklyReviewByRevenueService;
+    protected WeeklyReviewByRevenueService weeklyReviewByRevenueService;
 
     public WeeklyReviewByRevenueModel() {
         super();

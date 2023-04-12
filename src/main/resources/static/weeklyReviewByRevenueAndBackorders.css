@@ -1,0 +1,41 @@
+.label {
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+}
+
+.text-field {
+    -fx-border-color: rgba(68, 115, 197, 255);
+    -fx-text-fill: #000;
+}
+
+#WeeklyReviewToOptimizedRevenueAndBackordersPortal, #DisplayTitleFunC, #DisplayOptRoseValueFunC, #DisplayOptNoirValueFunC, #DisplayTotalValueFunC, #DisplayTotalRevenueValueFunC, #DisplayBackorderFulfilmentValueFunC {
+    -fx-background-color: rgb(124, 124, 124)
+}
+
+#WeeklyReviewToOptimizedRevenueAndBackordersTitle {
+    -fx-background-color: rgb(4, 28, 92);
+    -fx-text-fill: #FFF;
+    -fx-font-size: 18;
+}
+
+#NumYearItemNameFunC, #CapLabourItemNameFunC, #CapGrapeItemNameFunC, #PrcRoseItemNameFunC, #PrcNoirItemNameFunC, #BkoRoseItemNameFunC, #BkoNoirItemNameFunC {
+    -fx-text-fill: #FFF;
+}
+
+#DisplayPortalFunC {
+    -fx-background-color: #000;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+}
+
+#DisplayOptRoseLabelFunC, #DisplayOptNoirLabelFunC, #DisplayTotalLabelFunC, #DisplayProductionVolumeTitleFunC, #DisplayProductionVolumeTitleFunC, #DisplayTotalRevenueTitleFunC, #DisplayBackOrderFulfilmentTitleFunC, #FieldValidationTitleFunC, #FieldValidationCheckDetailsFunC, #FieldValidationErrorMessageFunC {
+    -fx-text-fill: rgb(165, 171, 29);
+}
+
+#DisplayProductionVolumePaneFunC {
+    -fx-border-color: rgba(68, 115, 197, 255);
+}
+
+#DisplayProductionVolumeTitleFunC {
+    -fx-background-color: #000;
+}

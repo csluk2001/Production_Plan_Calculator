@@ -64,8 +64,8 @@ public class WeeklyReviewByRevenueService {
             Resource Surplus of Grape: Sur_Grape = Cap_Grape - (Opt_Rose * 6 + Opt_Noir * 4)
          */
         return new int[]{
-                capacityOfLabour - (optimalLitresOfRose * 5 + optimalLitresOfNoir * 12),
-                capacityOfGrape - (optimalLitresOfRose * 6 + optimalLitresOfNoir * 4)
+                capacityOfLabour - (optimalLitresOfRose * labourConsumptionOfRose + optimalLitresOfNoir * labourConsumptionOfNoir),
+                capacityOfGrape - (optimalLitresOfRose * grapeConsumptionOfRose + optimalLitresOfNoir * grapeConsumptionOfNoir)
         };
     }
 
