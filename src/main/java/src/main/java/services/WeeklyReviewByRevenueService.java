@@ -69,23 +69,13 @@ public class WeeklyReviewByRevenueService {
         };
     }
 
-    public boolean wineProductionCapacityOverloadedOnGrape(int optRose, int optNoir, int numWeek) {
+    public boolean wineProductionCapacityOverloadedOnGrape(int optRose, int optNoir, int MAX_PRODUCTION_CAPACITY_PER_WEEK) {
         // Requirement: If Actual Production Capacity (i.e. 5,000 litres per week) < optRose + optNoir
-        int numOfWeek = 0;
-        for (int i = 0; i < 2; i++) {
-            numOfWeek += numWeek % 10 * pow(10, i);
-            numWeek /= 10;
-        }
-        logger.info("Number of weeks: {}", numOfWeek);
-        return 5000 * numOfWeek < optRose + optNoir;
+        return MAX_PRODUCTION_CAPACITY_PER_WEEK < optRose + optNoir;
     }
 
-    public boolean grapeResourceUtilizationIsInsufficientDueToInsufficientLabourSupplied(int optRose, int optNoir, int capGrape, int capLabour) {
+    public boolean grapeResourceUtilizationIsInsufficientDueToInsufficientLabourSupplied(int optRose, int optNoir, int capGrape) {
         // Requirement: After optimization of order mix, if the consumption of grapes is less than 90% of the given capacity due to insufficient labour supplied
-        if (capGrape * 0.9 > optRose + optNoir) {
-            // capLabour is all used up, so there is insufficient labour supplied
-            return capLabour < 5;
-        }
-        return false;
+        return capGrape * 0.9 > optRose * grapeConsumptionOfRose + optNoir * grapeConsumptionOfNoir;
     }
 }
