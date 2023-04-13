@@ -40,4 +40,9 @@ public class RevenueCalculationModel {
     private int capGrape = 0;
     private float prcRose = 0f;
     private float prcNoir = 0f;
+
+    private int backorderVolumeRose = 0;
+    private int backorderVolumeNoir = 0;
+    private int remainingCapLabourAfterBackorder = 0;
+    private int remainingCapGrapeAfterBackorder = 0;
 }

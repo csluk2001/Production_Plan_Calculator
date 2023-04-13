@@ -7,7 +7,7 @@ import src.main.java.services.WeeklyReviewByRevenueService;
 @Getter
 @Setter
 public class WeeklyReviewByRevenueModel extends RevenueCalculationModel {
-    private WeeklyReviewByRevenueService weeklyReviewByRevenueService;
+    protected WeeklyReviewByRevenueService weeklyReviewByRevenueService;
 
     public WeeklyReviewByRevenueModel() {
         super();
@@ -35,10 +35,10 @@ public class WeeklyReviewByRevenueModel extends RevenueCalculationModel {
     }
 
     public boolean wineProductionCapacityOverloadedOnGrape(int optRose, int optNoir) {
-        return this.weeklyReviewByRevenueService.wineProductionCapacityOverloadedOnGrape(optRose, optNoir, this.getCapGrape());
+        return this.weeklyReviewByRevenueService.wineProductionCapacityOverloadedOnGrape(optRose, optNoir, this.getMAX_PRODUCTION_CAPACITY_OF_MANUFACTURING_FACILITIES());
     }
 
-    public boolean grapeResourceUtilizationIsInsufficientDueToInsufficientLabourSupplied(int optRose, int optNoir, int capGrape, int capLabour) {
-        return this.weeklyReviewByRevenueService.grapeResourceUtilizationIsInsufficientDueToInsufficientLabourSupplied(optRose, optNoir, capGrape, capLabour);
+    public boolean grapeResourceUtilizationIsInsufficientDueToInsufficientLabourSupplied(int optRose, int optNoir, int capGrape) {
+        return this.weeklyReviewByRevenueService.grapeResourceUtilizationIsInsufficientDueToInsufficientLabourSupplied(optRose, optNoir, capGrape);
     }
 }

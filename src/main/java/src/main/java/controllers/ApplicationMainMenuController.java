@@ -23,7 +23,9 @@ public class ApplicationMainMenuController {
 
     @FXML
     private void invokeFunctionC() throws IOException {
-        Main.stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/frontend/WeeklyReviewByRevenueAndBackorders.fxml")))));
+        Scene WeeklyReviewByRevenueAndBackordersScene = new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/frontend/weeklyReviewByRevenueAndBackorders.fxml"))));
+        WeeklyReviewByRevenueAndBackordersScene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/static/weeklyReviewByRevenueAndBackorders.css")).toExternalForm());
+        Main.stage.setScene(WeeklyReviewByRevenueAndBackordersScene);
     }
 
     @FXML
