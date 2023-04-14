@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 public class WeeklyReviewByRevenueController implements Initializable {
     final Logger logger = LoggerFactory.getLogger(getClass());
     private final WeeklyReviewByRevenueModel weeklyReviewByRevenueModel;
+    private final String OUTPUT_FORMAT = "###,###.###";
     private int[] fieldID;
     @FXML
     private TextField NumYearValue;
@@ -55,22 +56,18 @@ public class WeeklyReviewByRevenueController implements Initializable {
     }
 
     private void syncNumYearValue() {
-        // numeric validation
-        boolean validInput = weeklyReviewByRevenueModel.isNumeric(this.NumYearValue.getText());
-        // store value into data model
-        weeklyReviewByRevenueModel.setNumWeek(Integer.parseInt(this.NumYearValue.getText()));
-        // numWeek range validation 2301 - 2312
-        validInput &= weeklyReviewByRevenueModel.isValidNumWeek();
+        // numeric validation amd numWeek range validation 2301 - 2315
+        boolean validInput = weeklyReviewByRevenueModel.isValidNumWeek(this.NumYearValue.getText());
         // set validation message
         this.syncFieldValidationCheckDetails(1, validInput);
         if (!validInput) {
             this.fieldID = new int[]{2, 3, 4, 5};
             this.lockOtherFields();
-            logger.error("{}, wrong!!!!", this.NumYearValue.getText());
             return;
         }
-        logger.info("correct!");
         this.releaseAllFields();
+        // store value into data model
+        weeklyReviewByRevenueModel.setNumWeek(Integer.parseInt(this.NumYearValue.getText()));
         logger.info("NumYear change to {}", this.NumYearValue.getText());
     }
 
@@ -149,7 +146,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
          */
         switch (inputFieldID) {
             case 1 ->
-                    this.FieldValidationCheckDetails.setText(valid ? "2301 <= WeekOfYear <= 2312" : "WeekOfYear should be in range of 2301 to 2312");
+                    this.FieldValidationCheckDetails.setText(valid ? "2301 <= WeekOfYear <= 2315" : "WeekOfYear should be in range of 2301 to 2315");
             case 2 ->
                     this.FieldValidationCheckDetails.setText(valid ? "Cap_Labour is Numeric" : "Cap_Labour is not Numeric");
             case 3 ->

@@ -51,7 +51,11 @@ public class RevenueCalculationModel {
         return input.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
     }
 
-    public boolean isValidNumWeek() {
-        return (2301 <= this.numWeek && this.numWeek <= 2312); // Week of the year should be in range from 2301 to 2312.
+    public boolean isValidNumWeek(String input) {
+        if (this.isNumeric(input)) {
+            int numWeek = Integer.parseInt(input);
+            return (2301 <= numWeek && numWeek <= 2315); // Week of the year should be in range from 2301 to 2315.
+        }
+        return false;
     }
 }
