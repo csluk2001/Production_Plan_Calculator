@@ -8,5 +8,5 @@ import lombok.Data;
 public class OptimalSalesRevenueModel {
     private int optimalLitresOfRose;
     private int optimalLitresOfNoir;
-    private float optimalSalesRevenue;
+    private int optimalSalesRevenue;
 }

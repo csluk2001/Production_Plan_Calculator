@@ -118,12 +118,10 @@
         </AnchorPane>
     </AnchorPane>
     <AnchorPane layoutX="38.0" layoutY="335.0" prefHeight="220.0" prefWidth="693.0">
-        <children>
-            <Line endX="621.0" layoutX="100.0" startX="-100.0"/>
-            <Label fx:id="FieldValidationTitle" prefHeight="50.0" prefWidth="120.0" text="Field Validation: "/>
-            <Line endX="621.0" endY="50.0" layoutX="100.0" startX="-100.0" startY="48.666656494140625"/>
-            <Label fx:id="FieldValidationCheckDetails" layoutX="120.0" prefHeight="50.0" prefWidth="210.0"/>
-            <Label fx:id="FieldValidationErrorMessage" layoutY="50.0" prefHeight="145.0" prefWidth="724.0"/>
-        </children>
+        <Line endX="621.0" layoutX="100.0" startX="-100.0"/>
+        <Label fx:id="FieldValidationTitle" prefHeight="50.0" prefWidth="120.0" text="Field Validation: "/>
+        <Line endX="621.0" endY="50.0" layoutX="100.0" startX="-100.0" startY="48.666656494140625"/>
+        <Label fx:id="FieldValidationCheckDetails" layoutX="120.0" prefHeight="50.0" prefWidth="601.0"/>
+        <Label fx:id="FieldValidationErrorMessage" layoutY="50.0" prefHeight="145.0" prefWidth="724.0"/>
     </AnchorPane>
 </AnchorPane>
