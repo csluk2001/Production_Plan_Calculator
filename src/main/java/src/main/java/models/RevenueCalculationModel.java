@@ -45,4 +45,13 @@ public class RevenueCalculationModel {
     private int backorderVolumeNoir = 0;
     private int remainingCapLabourAfterBackorder = 0;
     private int remainingCapGrapeAfterBackorder = 0;
+
+
+    public boolean isNumeric(String input) {
+        return input.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+    }
+
+    public boolean isValidNumWeek() {
+        return (2301 <= this.numWeek && this.numWeek <= 2312); // Week of the year should be in range from 2301 to 2312.
+    }
 }

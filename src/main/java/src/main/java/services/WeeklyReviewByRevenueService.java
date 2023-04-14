@@ -4,8 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import src.main.java.models.OptimalSalesRevenueModel;
 
-import static java.lang.Math.pow;
-
 public class WeeklyReviewByRevenueService {
     final Logger logger = LoggerFactory.getLogger(getClass());
     private final int labourConsumptionOfRose;
@@ -55,7 +53,7 @@ public class WeeklyReviewByRevenueService {
                 }
             }
         }
-        return new OptimalSalesRevenueModel(optimalLitresOfRose, optimalLitresOfNoir, optimalSalesRevenue);
+        return new OptimalSalesRevenueModel(optimalLitresOfRose, optimalLitresOfNoir, (int) optimalSalesRevenue);
     }
 
     public int[] labourAndGrapeSurplus(int optimalLitresOfRose, int optimalLitresOfNoir, int capacityOfLabour, int capacityOfGrape) {
