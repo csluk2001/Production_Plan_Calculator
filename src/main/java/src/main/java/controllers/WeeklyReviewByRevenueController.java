@@ -73,7 +73,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
 
     private void syncCapLabourValue() {
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueModel.isNumeric(this.CapLaborValue.getText());
+        boolean validInput = weeklyReviewByRevenueModel.isNumeric(this.CapLaborValue.getText()) && weeklyReviewByRevenueModel.isInteger(this.CapLaborValue.getText());
         // set validation message
         this.syncFieldValidationCheckDetails(2, validInput);
         if (!validInput) {
@@ -89,7 +89,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
 
     public void syncCapGrapeValue() {
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueModel.isNumeric(this.CapGrapeValue.getText());
+        boolean validInput = weeklyReviewByRevenueModel.isNumeric(this.CapGrapeValue.getText()) && weeklyReviewByRevenueModel.isInteger(this.CapGrapeValue.getText());
         // set validation message
         this.syncFieldValidationCheckDetails(3, validInput);
         if (!validInput) {
@@ -145,17 +145,27 @@ public class WeeklyReviewByRevenueController implements Initializable {
                 5) Prc_Noir
          */
         switch (inputFieldID) {
-            case 1 ->
+            case 1 :
                     this.FieldValidationCheckDetails.setText(valid ? "2301 <= WeekOfYear <= 2315" : "WeekOfYear should be in range of 2301 to 2315");
-            case 2 ->
-                    this.FieldValidationCheckDetails.setText(valid ? "Cap_Labour is Numeric" : "Cap_Labour is not Numeric");
-            case 3 ->
-                    this.FieldValidationCheckDetails.setText(valid ? "Cap_Grape is Numeric" : "Cap_Grape is not Numeric");
-            case 4 ->
-                    this.FieldValidationCheckDetails.setText(valid ? "Prc_Rose is Numeric" : "Prc_Rose is not Numeric");
-            case 5 ->
-                    this.FieldValidationCheckDetails.setText(valid ? "Prc_Noir is Numeric" : "Prc_Noir is not Numeric");
-            default -> this.FieldValidationCheckDetails.setText("");
+                    if (!valid) {weeklyReviewByRevenueModel.setNumWeek(0);}
+                    break;
+            case 2 :
+                    this.FieldValidationCheckDetails.setText(valid ? "Cap_Labour is Numeric" : "Cap_Labour is not Numeric or integer");
+                    if (!valid) {weeklyReviewByRevenueModel.setCapLabour(0);}
+                    break;
+            case 3 :
+                    this.FieldValidationCheckDetails.setText(valid ? "Cap_Grape is Numeric" : "Cap_Grape is not Numeric or integer");
+                    if (!valid) {weeklyReviewByRevenueModel.setCapGrape(0);}
+                    break;
+            case 4 :
+                    this.FieldValidationCheckDetails.setText(valid ? "Prc_Rose is Numeric" : "Prc_Rose is not Numeric or floating point value");
+                    if (!valid) {weeklyReviewByRevenueModel.setPrcRose(0.0f);}
+                    break;
+            case 5 :
+                    this.FieldValidationCheckDetails.setText(valid ? "Prc_Noir is Numeric" : "Prc_Noir is not Numeric or floating point value");
+                    if (!valid) {weeklyReviewByRevenueModel.setPrcNoir(0.0f);}
+                    break;
+            default : this.FieldValidationCheckDetails.setText("");
         }
     }
 
@@ -201,6 +211,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
             logger.error("Fields are not fully filled yet!");
             return;
         }
+        this.FieldValidationCheckDetails.setText("");
 
         // Calculate optimal Sales Revenue and display them on the right of the panel
         this.calculateAndDisplayOptimalSalesRevenue();
