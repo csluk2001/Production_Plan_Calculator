@@ -48,11 +48,16 @@ public class RevenueCalculationModel {
 
 
     public boolean isNumeric(String input) {
-        return input.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+        return input.matches("-?\\d+(\\.\\d+)?") // match a number with optional '-' and decimal.
+                && !input.equals(""); // Not Null string
+    }
+
+    private boolean isInteger(String input) {
+        return input.matches("^\\d+$"); // only contains 0 - 9 digits
     }
 
     public boolean isValidNumWeek(String input) {
-        if (this.isNumeric(input)) {
+        if (this.isNumeric(input) && isInteger(input)) {
             int numWeek = Integer.parseInt(input);
             return (2301 <= numWeek && numWeek <= 2315); // Week of the year should be in range from 2301 to 2315.
         }
