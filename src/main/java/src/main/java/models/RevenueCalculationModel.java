@@ -52,9 +52,7 @@ public class RevenueCalculationModel {
                 && !input.equals(""); // Not Null string
     }
 
-    public boolean isInteger(String input) {
-        return input.matches("^\\d+$"); // only contains 0 - 9 digits
-    }
+
 
     public boolean isValidNumWeek(String input) {
         if (this.isNumeric(input) && isInteger(input)) {
