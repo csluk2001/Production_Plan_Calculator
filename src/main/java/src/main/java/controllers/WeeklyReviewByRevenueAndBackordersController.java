@@ -310,31 +310,20 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         logger.info("NumYear change to {}", this.BkoNoirValueFunC.getText());
     }
 
-    private boolean determineInsufficientProductionCapacityForOptimalMix() {
-        OptimalSalesRevenueModel optimalSalesRevenue = this.weeklyReviewByRevenueAndBackordersModel.calculateOptimalProductionValue();
-        return this.weeklyReviewByRevenueAndBackordersModel.wineProductionCapacityOverloadedOnGrape(optimalSalesRevenue.getOptimalLitresOfRose(), optimalSalesRevenue.getOptimalLitresOfNoir());
-    }
-
-    private boolean determineInsufficientLabourSupplyForSatisfiedGrapeResourceUtilization() {
-        OptimalSalesRevenueModel optimalSalesRevenue = this.weeklyReviewByRevenueAndBackordersModel.calculateOptimalProductionValue();
-        return this.weeklyReviewByRevenueAndBackordersModel.grapeResourceUtilizationIsInsufficientDueToInsufficientLabourSupplied(optimalSalesRevenue.getOptimalLitresOfRose(), optimalSalesRevenue.getOptimalLitresOfNoir(), this.weeklyReviewByRevenueAndBackordersModel.getCapGrape());
-    }
-
-
     // Field Validations
     private void abnormalSituationValidationsFunC(int[] opt_litre) {
         final String errorMsg1 = "w1: Insufficient production capacity to produce the optimal mix, please reduce or adjust the capacity of\nlabor & grape volume!";
         final String errorMsg2 = "w2: Insufficient labor supplied to utilize the grape resource (less than 90%)!";
         final String errorMsg3 = "w3: According to company policy, ratio of backorder volume should not lower than 70% of the optimal\nproduction volume!";
         String errorMsgConcat = "";
-        if (this.determineInsufficientProductionCapacityForOptimalMix()) {
+        if (this.weeklyReviewByRevenueAndBackordersModel.getMAX_PRODUCTION_CAPACITY_OF_MANUFACTURING_FACILITIES() < opt_litre[0] + opt_litre[1]) {
             errorMsgConcat = errorMsg1;
         }
-        if (this.determineInsufficientLabourSupplyForSatisfiedGrapeResourceUtilization()) {
+        if (opt_litre[2] * 0.9 > opt_litre[0] * this.weeklyReviewByRevenueAndBackordersModel.getROSE_CONSUMPTION_TO_MAKE_A_LITRE_OF_WINE_GRAPE() + opt_litre[1] * this.weeklyReviewByRevenueAndBackordersModel.getNOIR_CONSUMPTION_TO_MAKE_A_LITRE_OF_WINE_GRAPE()) {
             errorMsgConcat = errorMsgConcat == "" ? errorMsg2 : errorMsgConcat + "\n" + errorMsg2;
         }
         if (weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose() +
-                weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose()
+                weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir()
             < 0.7*(opt_litre[0] + opt_litre[1])) {
             errorMsgConcat = errorMsgConcat == "" ? errorMsg3 : errorMsgConcat + "\n" + errorMsg3;
         }
@@ -384,18 +373,22 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
     private int [] calculateAndDisplayOptimalSalesRevenueAndCheckBackordersProduction() {
         int[] remainingResourceAfterBackorders = this.weeklyReviewByRevenueAndBackordersModel.calculateLabourAndGrapeSurplus(this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose(),
                 this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir());
-        this.weeklyReviewByRevenueAndBackordersModel.setCapLabour(remainingResourceAfterBackorders[0]);
-        this.weeklyReviewByRevenueAndBackordersModel.setCapGrape(remainingResourceAfterBackorders[1]);
+        int originalCapGrape = this.weeklyReviewByRevenueAndBackordersModel.getCapGrape();
+        if (remainingResourceAfterBackorders[0] >= 0 && remainingResourceAfterBackorders[1] >= 0) {
+            this.weeklyReviewByRevenueAndBackordersModel.setCapLabour(remainingResourceAfterBackorders[0]);
+            this.weeklyReviewByRevenueAndBackordersModel.setCapGrape(remainingResourceAfterBackorders[1]);
+        }
         OptimalSalesRevenueModel optimalSalesRevenue = this.weeklyReviewByRevenueAndBackordersModel.calculateOptimalProductionValue();
-        this.DisplayOptRoseValueFunC.setText(Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose()));
-        this.DisplayOptNoirValueFunC.setText(Integer.toString(optimalSalesRevenue.getOptimalLitresOfNoir()));
-        this.DisplayTotalValueFunC.setText(Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose() + optimalSalesRevenue.getOptimalLitresOfNoir()));
-        this.DisplayTotalRevenueValueFunC.setText(Float.toString(optimalSalesRevenue.getOptimalSalesRevenue()));
+        this.DisplayOptRoseValueFunC.setText(remainingResourceAfterBackorders[0] >= 0 && remainingResourceAfterBackorders[1] >= 0 ? Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose()) : Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose()));
+        this.DisplayOptNoirValueFunC.setText(remainingResourceAfterBackorders[0] >= 0 && remainingResourceAfterBackorders[1] >= 0 ? Integer.toString(optimalSalesRevenue.getOptimalLitresOfNoir() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir()) : Integer.toString(optimalSalesRevenue.getOptimalLitresOfNoir()));
+        this.DisplayTotalValueFunC.setText(remainingResourceAfterBackorders[0] >= 0 && remainingResourceAfterBackorders[1] >= 0 ? Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose() + optimalSalesRevenue.getOptimalLitresOfNoir() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir()) : Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose() + optimalSalesRevenue.getOptimalLitresOfNoir()));
+        this.DisplayTotalRevenueValueFunC.setText(remainingResourceAfterBackorders[0] >= 0 && remainingResourceAfterBackorders[1] >= 0 ? Float.toString(optimalSalesRevenue.getOptimalSalesRevenue() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose() * this.weeklyReviewByRevenueAndBackordersModel.getPrcRose() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir() * this.weeklyReviewByRevenueAndBackordersModel.getPrcNoir()) : Float.toString(optimalSalesRevenue.getOptimalSalesRevenue()));
         this.DisplayBackorderFulfilmentValueFunC.setText(remainingResourceAfterBackorders[0] >= 0 && remainingResourceAfterBackorders[1] >= 0 ? "Yes" : "No");
         this.DisplayBackorderFulfilmentMeaningFunC.setText(remainingResourceAfterBackorders[0] >= 0 && remainingResourceAfterBackorders[1] >= 0 ? "Resourcue of labor and grape are sufficient\nto produce all backorders of Rosé + P.Noir" : "Resourcue of labor and grape are insufficient\nto produce all backorders of Rosé + P.Noir");
         return new int[]{
-                optimalSalesRevenue.getOptimalLitresOfRose(),
-                optimalSalesRevenue.getOptimalLitresOfNoir()
+                remainingResourceAfterBackorders[0] >= 0 && remainingResourceAfterBackorders[1] >= 0 ? optimalSalesRevenue.getOptimalLitresOfRose() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose() : optimalSalesRevenue.getOptimalLitresOfRose(),
+                remainingResourceAfterBackorders[0] >= 0 && remainingResourceAfterBackorders[1] >= 0 ? optimalSalesRevenue.getOptimalLitresOfNoir() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir() : optimalSalesRevenue.getOptimalLitresOfNoir(),
+                originalCapGrape
         };
     }
 
