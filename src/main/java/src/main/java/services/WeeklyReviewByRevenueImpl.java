@@ -33,9 +33,9 @@ public class WeeklyReviewByRevenueImpl {
         logger.info("maxLitre {} {}", maxLitreOfRoseProduced, maxLitreOfNoirProduced);
 
         // Rose
-        for (int i = 0; i < maxLitreOfRoseProduced; i++) {
+        for (int i = 0; i <= maxLitreOfRoseProduced; i++) {
             // Noir
-            for (int j = 0; j < maxLitreOfNoirProduced; j++) {
+            for (int j = 0; j <= maxLitreOfNoirProduced; j++) {
                 // If grape consumption of Rose and Noir combined exceed the grape resource planned for the production cycle
                 if (grapeConsumptionOfRose * i + grapeConsumptionOfNoir * j > capGrape)
                     break;
