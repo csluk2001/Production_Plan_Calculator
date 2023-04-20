@@ -4,14 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import src.main.java.models.OptimalSalesRevenueModel;
 
-public class WeeklyReviewByRevenueService {
+public class WeeklyReviewByRevenueImpl {
     final Logger logger = LoggerFactory.getLogger(getClass());
     private final int labourConsumptionOfRose;
     private final int labourConsumptionOfNoir;
     private final int grapeConsumptionOfRose;
     private final int grapeConsumptionOfNoir;
 
-    public WeeklyReviewByRevenueService(int labourConsumptionOfRose, int labourConsumptionOfNoir, int grapeConsumptionOfRose, int grapeConsumptionOfNoir) {
+    public WeeklyReviewByRevenueImpl(int labourConsumptionOfRose, int labourConsumptionOfNoir, int grapeConsumptionOfRose, int grapeConsumptionOfNoir) {
         this.labourConsumptionOfRose = labourConsumptionOfRose;
         this.labourConsumptionOfNoir = labourConsumptionOfNoir;
         this.grapeConsumptionOfRose = grapeConsumptionOfRose;
@@ -33,9 +33,9 @@ public class WeeklyReviewByRevenueService {
         logger.info("maxLitre {} {}", maxLitreOfRoseProduced, maxLitreOfNoirProduced);
 
         // Rose
-        for (int i = 0; i < maxLitreOfRoseProduced; i++) {
+        for (int i = 0; i <= maxLitreOfRoseProduced; i++) {
             // Noir
-            for (int j = 0; j < maxLitreOfNoirProduced; j++) {
+            for (int j = 0; j <= maxLitreOfNoirProduced; j++) {
                 // If grape consumption of Rose and Noir combined exceed the grape resource planned for the production cycle
                 if (grapeConsumptionOfRose * i + grapeConsumptionOfNoir * j > capGrape)
                     break;
@@ -69,7 +69,7 @@ public class WeeklyReviewByRevenueService {
 
     public boolean wineProductionCapacityOverloadedOnGrape(int optRose, int optNoir, int MAX_PRODUCTION_CAPACITY_PER_WEEK) {
         // Requirement: If Actual Production Capacity (i.e. 5,000 litres per week) < optRose + optNoir
-        return MAX_PRODUCTION_CAPACITY_PER_WEEK < optRose + optNoir;
+        return MAX_PRODUCTION_CAPACITY_PER_WEEK * 5000 < optRose + optNoir;
     }
 
     public boolean grapeResourceUtilizationIsInsufficientDueToInsufficientLabourSupplied(int optRose, int optNoir, int capGrape) {
