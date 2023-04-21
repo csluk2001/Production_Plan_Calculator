@@ -21,7 +21,6 @@ import java.util.ResourceBundle;
 public class WeeklyReviewByRevenueController implements Initializable {
     final Logger logger = LoggerFactory.getLogger(getClass());
     private final WeeklyReviewByRevenueModel weeklyReviewByRevenueModel;
-    private final String OUTPUT_FORMAT = "###,###.###";
     private int[] fieldID;
     @FXML
     private TextField NumYearValue;
@@ -51,32 +50,51 @@ public class WeeklyReviewByRevenueController implements Initializable {
     private Label FieldValidationErrorMessage;
 
     public WeeklyReviewByRevenueController() {
-        // public WeeklyReviewByRevenueModel(int numWeek, int capLabour, int capGrape, int prcRose, int prcNoir)
         weeklyReviewByRevenueModel = new WeeklyReviewByRevenueModel();
     }
 
     private void syncNumYearValue() {
-        // numeric validation amd numWeek range validation 2301 - 2315
-        boolean validInput = weeklyReviewByRevenueModel.isValidNumWeek(this.NumYearValue.getText());
+        if (weeklyReviewByRevenueModel.isEmptyField(this.NumYearValue.getText())) {
+            // set validation message
+            this.syncFieldValidationCheckDetails(0, true);
+            this.releaseAllFields();
+            // store value into data model
+            weeklyReviewByRevenueModel.setWeekOfYear(Integer.MIN_VALUE);
+            logger.info("NumYear change to null");
+            return;
+        }
+        // numeric validation amd weekOfYear range validation 2301 - 2315
+        boolean validInput = weeklyReviewByRevenueModel.isValidWeekOfYear(this.NumYearValue.getText());
         // set validation message
         this.syncFieldValidationCheckDetails(1, validInput);
         if (!validInput) {
+            weeklyReviewByRevenueModel.setWeekOfYear(Integer.MIN_VALUE);
             this.fieldID = new int[]{2, 3, 4, 5};
             this.lockOtherFields();
             return;
         }
         this.releaseAllFields();
         // store value into data model
-        weeklyReviewByRevenueModel.setNumWeek(Integer.parseInt(this.NumYearValue.getText()));
+        weeklyReviewByRevenueModel.setWeekOfYear(Integer.parseInt(this.NumYearValue.getText()));
         logger.info("NumYear change to {}", this.NumYearValue.getText());
     }
 
     private void syncCapLabourValue() {
+        if (weeklyReviewByRevenueModel.isEmptyField(this.CapLaborValue.getText())) {
+            // set validation message
+            this.syncFieldValidationCheckDetails(0, true);
+            this.releaseAllFields();
+            // store value into data model
+            weeklyReviewByRevenueModel.setCapLabour(Integer.MIN_VALUE);
+            logger.info("CapLabor change to null");
+            return;
+        }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueModel.isNumeric(this.CapLaborValue.getText());
+        boolean validInput = weeklyReviewByRevenueModel.isInteger(this.CapLaborValue.getText());
         // set validation message
         this.syncFieldValidationCheckDetails(2, validInput);
         if (!validInput) {
+            weeklyReviewByRevenueModel.setCapLabour(Integer.MIN_VALUE);
             this.fieldID = new int[]{1, 3, 4, 5};
             this.lockOtherFields();
             return;
@@ -84,15 +102,25 @@ public class WeeklyReviewByRevenueController implements Initializable {
         this.releaseAllFields();
         // store value into data model
         weeklyReviewByRevenueModel.setCapLabour(Integer.parseInt(this.CapLaborValue.getText()));
-        logger.info("NumYear change to {}", this.CapLaborValue.getText());
+        logger.info("CapLabor change to {}", this.CapLaborValue.getText());
     }
 
     public void syncCapGrapeValue() {
+        if (weeklyReviewByRevenueModel.isEmptyField(this.CapGrapeValue.getText())) {
+            // set validation message
+            this.syncFieldValidationCheckDetails(0, true);
+            this.releaseAllFields();
+            // store value into data model
+            weeklyReviewByRevenueModel.setCapGrape(Integer.MIN_VALUE);
+            logger.info("CapGrape change to null");
+            return;
+        }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueModel.isNumeric(this.CapGrapeValue.getText());
+        boolean validInput = weeklyReviewByRevenueModel.isInteger(this.CapGrapeValue.getText());
         // set validation message
         this.syncFieldValidationCheckDetails(3, validInput);
         if (!validInput) {
+            weeklyReviewByRevenueModel.setCapGrape(Integer.MIN_VALUE);
             this.fieldID = new int[]{1, 2, 4, 5};
             this.lockOtherFields();
             return;
@@ -100,15 +128,25 @@ public class WeeklyReviewByRevenueController implements Initializable {
         this.releaseAllFields();
         // store value into data model
         weeklyReviewByRevenueModel.setCapGrape(Integer.parseInt(this.CapGrapeValue.getText()));
-        logger.info("NumYear change to {}", this.CapGrapeValue.getText());
+        logger.info("CapGrape change to {}", this.CapGrapeValue.getText());
     }
 
     private void syncPrcRoseValue() {
+        if (weeklyReviewByRevenueModel.isEmptyField(this.PrcRoseValue.getText())) {
+            // set validation message
+            this.syncFieldValidationCheckDetails(0, true);
+            this.releaseAllFields();
+            // store value into data model
+            weeklyReviewByRevenueModel.setPrcRose(Float.MIN_VALUE);
+            logger.info("PrcRose change to null");
+            return;
+        }
         // numeric validation
         boolean validInput = weeklyReviewByRevenueModel.isNumeric(this.PrcRoseValue.getText());
         // set validation message
         this.syncFieldValidationCheckDetails(4, validInput);
         if (!validInput) {
+            weeklyReviewByRevenueModel.setPrcRose(Float.MIN_VALUE);
             this.fieldID = new int[]{1, 2, 3, 5};
             this.lockOtherFields();
             return;
@@ -116,15 +154,26 @@ public class WeeklyReviewByRevenueController implements Initializable {
         this.releaseAllFields();
         // store value into data model
         weeklyReviewByRevenueModel.setPrcRose(Float.parseFloat(this.PrcRoseValue.getText()));
-        logger.info("NumYear change to {}", this.PrcRoseValue.getText());
+        logger.info("PrcRose change to {}", this.PrcRoseValue.getText());
     }
 
     private void syncPrcNoirValue() {
+        if (weeklyReviewByRevenueModel.isEmptyField(this.PrcNoirValue.getText())) {
+            // set validation message
+            this.syncFieldValidationCheckDetails(0, true);
+            this.releaseAllFields();
+            // store value into data model
+            weeklyReviewByRevenueModel.setPrcNoir(Float.MIN_VALUE);
+            logger.info("PrcNoir change to null");
+            return;
+        }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueModel.isNumeric(this.PrcNoirValue.getText());
+        boolean validInput = weeklyReviewByRevenueModel.isEmptyField(this.PrcNoirValue.getText()) ||
+                weeklyReviewByRevenueModel.isNumeric(this.PrcNoirValue.getText());
         // validation message
         this.syncFieldValidationCheckDetails(5, validInput);
         if (!validInput) {
+            weeklyReviewByRevenueModel.setPrcNoir(Float.MIN_VALUE);
             this.fieldID = new int[]{1, 2, 3, 4};
             this.lockOtherFields();
             return;
@@ -132,7 +181,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
         this.releaseAllFields();
         // store value into data model
         weeklyReviewByRevenueModel.setPrcNoir(Float.parseFloat(this.PrcNoirValue.getText()));
-        logger.info("NumYear change to {}", this.PrcNoirValue.getText());
+        logger.info("PrcNoir change to {}", this.PrcNoirValue.getText());
     }
 
     private void syncFieldValidationCheckDetails(int inputFieldID, boolean valid) {
@@ -148,9 +197,9 @@ public class WeeklyReviewByRevenueController implements Initializable {
             case 1 ->
                     this.FieldValidationCheckDetails.setText(valid ? "2301 <= WeekOfYear <= 2315" : "WeekOfYear should be in range of 2301 to 2315");
             case 2 ->
-                    this.FieldValidationCheckDetails.setText(valid ? "Cap_Labour is Numeric" : "Cap_Labour is not Numeric");
+                    this.FieldValidationCheckDetails.setText(valid ? "Cap_Labour is Numeric" : "Cap_Labour is not Integer");
             case 3 ->
-                    this.FieldValidationCheckDetails.setText(valid ? "Cap_Grape is Numeric" : "Cap_Grape is not Numeric");
+                    this.FieldValidationCheckDetails.setText(valid ? "Cap_Grape is Numeric" : "Cap_Grape is not Integer");
             case 4 ->
                     this.FieldValidationCheckDetails.setText(valid ? "Prc_Rose is Numeric" : "Prc_Rose is not Numeric");
             case 5 ->
@@ -181,16 +230,16 @@ public class WeeklyReviewByRevenueController implements Initializable {
     }
 
     private boolean checkAllFieldsFilled() {
-        return !(this.weeklyReviewByRevenueModel.getNumWeek() == 0 ||
-                this.weeklyReviewByRevenueModel.getCapGrape() == 0 ||
-                this.weeklyReviewByRevenueModel.getCapLabour() == 0 ||
-                this.weeklyReviewByRevenueModel.getPrcRose() == 0.0f ||
-                this.weeklyReviewByRevenueModel.getPrcNoir() == 0.0f);
+        return !(this.weeklyReviewByRevenueModel.getWeekOfYear() == Integer.MIN_VALUE ||
+                this.weeklyReviewByRevenueModel.getCapGrape() == Integer.MIN_VALUE ||
+                this.weeklyReviewByRevenueModel.getCapLabour() == Integer.MIN_VALUE ||
+                this.weeklyReviewByRevenueModel.getPrcRose() == Float.MIN_VALUE ||
+                this.weeklyReviewByRevenueModel.getPrcNoir() == Float.MIN_VALUE);
     }
 
     public void runCalculation() {
         logger.info("Input fields NumYear={}, CapLabour={}, CapGrape={}, PrcRose={}, PrcNoir={}",
-                this.weeklyReviewByRevenueModel.getNumWeek(),
+                this.weeklyReviewByRevenueModel.getWeekOfYear(),
                 this.weeklyReviewByRevenueModel.getCapLabour(),
                 this.weeklyReviewByRevenueModel.getCapGrape(),
                 this.weeklyReviewByRevenueModel.getPrcRose(),
