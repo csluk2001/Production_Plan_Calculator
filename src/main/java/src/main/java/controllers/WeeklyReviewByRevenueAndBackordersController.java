@@ -63,6 +63,24 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         weeklyReviewByRevenueAndBackordersModel = new WeeklyReviewByRevenueAndBackordersModel();
     }
 
+    public String convertToCommaSeparatedString(int input) {
+        StringBuilder sb = new StringBuilder();
+        String str = Integer.toString(Math.abs(input));
+        int len = str.length();
+        int count = 0;
+        for (int i = len - 1; i >= 0; i--) {
+            sb.append(str.charAt(i));
+            count++;
+            if (count % 3 == 0 && i != 0) {
+                sb.append(",");
+            }
+        }
+        if (input < 0) {
+            sb.append("-");
+        }
+        return sb.reverse().toString();
+    }
+
     private boolean checkAllFieldsFilledFunC() {
         return !(this.weeklyReviewByRevenueAndBackordersModel.getWeekOfYear() == Integer.MIN_VALUE ||
                 this.weeklyReviewByRevenueAndBackordersModel.getCapGrape() == Integer.MIN_VALUE ||
@@ -390,7 +408,7 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         this.DisplayOptRoseValueFunC.setText(enough ? Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose()) : Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose()));
         this.DisplayOptNoirValueFunC.setText(enough ? Integer.toString(optimalSalesRevenue.getOptimalLitresOfNoir() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir()) : Integer.toString(optimalSalesRevenue.getOptimalLitresOfNoir()));
         this.DisplayTotalValueFunC.setText(enough ? Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose() + optimalSalesRevenue.getOptimalLitresOfNoir() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir()) : Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose() + optimalSalesRevenue.getOptimalLitresOfNoir()));
-        this.DisplayTotalRevenueValueFunC.setText(enough ? Float.toString(optimalSalesRevenue.getOptimalSalesRevenue() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose() * this.weeklyReviewByRevenueAndBackordersModel.getPrcRose() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir() * this.weeklyReviewByRevenueAndBackordersModel.getPrcNoir()) : Float.toString(optimalSalesRevenue.getOptimalSalesRevenue()));
+        this.DisplayTotalRevenueValueFunC.setText(enough ? this.convertToCommaSeparatedString(Math.round(optimalSalesRevenue.getOptimalSalesRevenueNonRoundOff() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose() * this.weeklyReviewByRevenueAndBackordersModel.getPrcRose() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir() * this.weeklyReviewByRevenueAndBackordersModel.getPrcNoir())) : this.convertToCommaSeparatedString(Math.round(optimalSalesRevenue.getOptimalSalesRevenue())));
         this.DisplayBackorderFulfilmentValueFunC.setText(enough ? "Yes" : "No");
         this.DisplayBackorderFulfilmentMeaningFunC.setText(enough ? "Resourcue of labor and grape are sufficient\nto produce all backorders of Rosé + P.Noir" : "Resourcue of labor and grape are insufficient\nto produce all backorders of Rosé + P.Noir");
         return new int[]{

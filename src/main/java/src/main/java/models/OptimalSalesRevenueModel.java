@@ -9,4 +9,5 @@ public class OptimalSalesRevenueModel {
     private int optimalLitresOfRose;
     private int optimalLitresOfNoir;
     private int optimalSalesRevenue;
+    private float optimalSalesRevenueNonRoundOff = 0.0f;
 }

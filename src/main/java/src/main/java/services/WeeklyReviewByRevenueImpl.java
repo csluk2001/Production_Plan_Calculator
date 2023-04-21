@@ -53,7 +53,7 @@ public class WeeklyReviewByRevenueImpl {
                 }
             }
         }
-        return new OptimalSalesRevenueModel(optimalLitresOfRose, optimalLitresOfNoir, (int) optimalSalesRevenue);
+        return new OptimalSalesRevenueModel(optimalLitresOfRose, optimalLitresOfNoir, Math.round(optimalSalesRevenue), optimalSalesRevenue);
     }
 
     public int[] labourAndGrapeSurplus(int optimalLitresOfRose, int optimalLitresOfNoir, int capacityOfLabour, int capacityOfGrape) {
