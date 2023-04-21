@@ -9,9 +9,4 @@ public class WeeklyReviewByRevenueAndBackordersModel extends WeeklyReviewByReven
     public WeeklyReviewByRevenueAndBackordersModel() {
         super();
     }
-
-    public boolean backorderAndProductionVolumeRatioInbalance()
-    {
-        return true;
-    }
 }

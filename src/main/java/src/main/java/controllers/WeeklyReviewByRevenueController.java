@@ -194,17 +194,22 @@ public class WeeklyReviewByRevenueController implements Initializable {
                 5) Prc_Noir
          */
         switch (inputFieldID) {
-            case 1 ->
+            case 1 :
                     this.FieldValidationCheckDetails.setText(valid ? "2301 <= WeekOfYear <= 2315" : "WeekOfYear should be in range of 2301 to 2315");
-            case 2 ->
-                    this.FieldValidationCheckDetails.setText(valid ? "Cap_Labour is Numeric" : "Cap_Labour is not Integer");
-            case 3 ->
-                    this.FieldValidationCheckDetails.setText(valid ? "Cap_Grape is Numeric" : "Cap_Grape is not Integer");
-            case 4 ->
+                    break;
+            case 2 :
+                    this.FieldValidationCheckDetails.setText(valid ? "Cap_Labour is Integer" : "Cap_Labour is not Numeric or Integer");
+                    break;
+            case 3 :
+                    this.FieldValidationCheckDetails.setText(valid ? "Cap_Grape is Integer" : "Cap_Grape is not Numeric or Integer");
+                    break;
+            case 4 :
                     this.FieldValidationCheckDetails.setText(valid ? "Prc_Rose is Numeric" : "Prc_Rose is not Numeric");
-            case 5 ->
+                    break;
+            case 5 :
                     this.FieldValidationCheckDetails.setText(valid ? "Prc_Noir is Numeric" : "Prc_Noir is not Numeric");
-            default -> this.FieldValidationCheckDetails.setText("");
+                    break;
+            default : this.FieldValidationCheckDetails.setText("");
         }
     }
 
@@ -250,6 +255,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
             logger.error("Fields are not fully filled yet!");
             return;
         }
+        this.FieldValidationCheckDetails.setText("");
 
         // Calculate optimal Sales Revenue and display them on the right of the panel
         this.calculateAndDisplayOptimalSalesRevenue();
