@@ -168,8 +168,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
             return;
         }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueModel.isEmptyField(this.PrcNoirValue.getText()) ||
-                weeklyReviewByRevenueModel.isNumeric(this.PrcNoirValue.getText());
+        boolean validInput = weeklyReviewByRevenueModel.isNumeric(this.PrcNoirValue.getText());
         // validation message
         this.syncFieldValidationCheckDetails(5, validInput);
         if (!validInput) {

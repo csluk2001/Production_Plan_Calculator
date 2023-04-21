@@ -53,7 +53,7 @@ public class RevenueCalculationModel {
     }
 
     public boolean isInteger(String input) {
-        return input.matches("^\\d+$"); // only contains 0 - 9 digits
+        return input.matches("-?\\d+$"); // only contains 0 - 9 digits
     }
 
     public boolean isEmptyField(String input) {
