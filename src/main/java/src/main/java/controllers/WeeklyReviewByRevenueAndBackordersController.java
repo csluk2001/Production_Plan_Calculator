@@ -29,55 +29,21 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
     private final WeeklyReviewByRevenueAndBackordersModel weeklyReviewByRevenueAndBackordersModel;
     private int[] fieldID;
     @FXML
-    private Label BkoNoirItemNameFunC;
-    @FXML
-    private Label BkoNoirUnitFunC;
-    @FXML
     private TextField BkoNoirValueFunC;
     @FXML
-    private Label BkoRoseItemNameFunC;
-    @FXML
-    private Label BkoRoseUnitFunC;
-    @FXML
     private TextField BkoRoseValueFunC;
-    @FXML
-    private Label CapGrapeItemNameFunC;
-    @FXML
-    private Label CapGrapeUnitFunC;
     @FXML
     private TextField CapGrapeValueFunC;
     @FXML
     private TextField CapLaborValueFunC;
     @FXML
-    private Label CapLabourItemNameFunC;
-    @FXML
-    private Label CapLabourUnitFunC;
-    @FXML
-    private Label DisplayBackOrderFulfilmentTitleFunC;
-    @FXML
     private Label DisplayBackorderFulfilmentMeaningFunC;
     @FXML
     private Label DisplayBackorderFulfilmentValueFunC;
     @FXML
-    private Label DisplayOptNoirLabelFunC;
-    @FXML
     private Label DisplayOptNoirValueFunC;
     @FXML
-    private Label DisplayOptRoseLabelFunC;
-    @FXML
     private Label DisplayOptRoseValueFunC;
-    @FXML
-    private AnchorPane DisplayPortalFunC;
-    @FXML
-    private AnchorPane DisplayProductionVolumePaneFunC;
-    @FXML
-    private Label DisplayProductionVolumeTitleFunC;
-    @FXML
-    private Label DisplayTitleFunC;
-    @FXML
-    private Label DisplayTotalLabelFunC;
-    @FXML
-    private Label DisplayTotalRevenueTitleFunC;
     @FXML
     private Label DisplayTotalRevenueValueFunC;
     @FXML
@@ -87,46 +53,42 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
     @FXML
     private Label FieldValidationErrorMessageFunC;
     @FXML
-    private Label FieldValidationTitleFunC;
-    @FXML
-    private Label NumYearItemNameFunC;
-    @FXML
-    private Label NumYearUnitFunC;
-    @FXML
     private TextField NumYearValueFunC;
-    @FXML
-    private Label PrcNoirItemNameFunC;
-    @FXML
-    private Label PrcNoirUnitFunC;
     @FXML
     private TextField PrcNoirValueFunC;
     @FXML
-    private Label PrcRoseItemNameFunC;
-    @FXML
-    private Label PrcRoseUnitFunC;
-    @FXML
     private TextField PrcRoseValueFunC;
-    @FXML
-    private AnchorPane WeeklyReviewToOptimizedRevenueAndBackordersPortal;
-    @FXML
-    private Label WeeklyReviewToOptimizedRevenueAndBackordersTitle;
-    @FXML
-    private Button button_exit_FunC;
-    @FXML
-    private Button button_run_FunC;
 
     public WeeklyReviewByRevenueAndBackordersController() {
         weeklyReviewByRevenueAndBackordersModel = new WeeklyReviewByRevenueAndBackordersModel();
     }
 
+    public String convertToCommaSeparatedString(int input) {
+        StringBuilder sb = new StringBuilder();
+        String str = Integer.toString(Math.abs(input));
+        int len = str.length();
+        int count = 0;
+        for (int i = len - 1; i >= 0; i--) {
+            sb.append(str.charAt(i));
+            count++;
+            if (count % 3 == 0 && i != 0) {
+                sb.append(",");
+            }
+        }
+        if (input < 0) {
+            sb.append("-");
+        }
+        return sb.reverse().toString();
+    }
+
     private boolean checkAllFieldsFilledFunC() {
-        return !(this.weeklyReviewByRevenueAndBackordersModel.getNumWeek() == 0 ||
-                this.weeklyReviewByRevenueAndBackordersModel.getCapGrape() == 0 ||
-                this.weeklyReviewByRevenueAndBackordersModel.getCapLabour() == 0 ||
-                this.weeklyReviewByRevenueAndBackordersModel.getPrcRose() == 0.0f ||
-                this.weeklyReviewByRevenueAndBackordersModel.getPrcNoir() == 0.0f ||
-                this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose() == 0 ||
-                this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir() == 0);
+        return !(this.weeklyReviewByRevenueAndBackordersModel.getWeekOfYear() == Integer.MIN_VALUE ||
+                this.weeklyReviewByRevenueAndBackordersModel.getCapGrape() == Integer.MIN_VALUE ||
+                this.weeklyReviewByRevenueAndBackordersModel.getCapLabour() == Integer.MIN_VALUE ||
+                this.weeklyReviewByRevenueAndBackordersModel.getPrcRose() == Float.MIN_VALUE ||
+                this.weeklyReviewByRevenueAndBackordersModel.getPrcNoir() == Float.MIN_VALUE ||
+                this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose() == Integer.MIN_VALUE ||
+                this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir() == Integer.MIN_VALUE);
     }
 
     private void syncFieldValidationCheckDetails(int inputFieldID, boolean valid) {
@@ -143,31 +105,24 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         switch (inputFieldID) {
             case 1 :
                     this.FieldValidationCheckDetailsFunC.setText(valid ? "2301 <= WeekOfYear <= 2315" : "WeekOfYear should be in range of 2301 to 2315");
-                    if (!valid) {weeklyReviewByRevenueAndBackordersModel.setNumWeek(0);}
                     break;
             case 2 :
                     this.FieldValidationCheckDetailsFunC.setText(valid ? "Cap_Labour is Numeric" : "Cap_Labour is not Numeric or integer");
-                    if (!valid) {weeklyReviewByRevenueAndBackordersModel.setCapLabour(0);}
                     break;
             case 3 :
                     this.FieldValidationCheckDetailsFunC.setText(valid ? "Cap_Grape is Numeric" : "Cap_Grape is not Numeric or integer");
-                    if (!valid) {weeklyReviewByRevenueAndBackordersModel.setCapGrape(0);}
                     break;
             case 4 :
-                    this.FieldValidationCheckDetailsFunC.setText(valid ? "Prc_Rose is Numeric" : "Prc_Rose is not Numeric or floating point value");
-                    if (!valid) {weeklyReviewByRevenueAndBackordersModel.setPrcRose(0.0f);}
+                    this.FieldValidationCheckDetailsFunC.setText(valid ? "Prc_Rose is Numeric" : "Prc_Rose is not Numeric");
                     break;
             case 5 :
-                    this.FieldValidationCheckDetailsFunC.setText(valid ? "Prc_Noir is Numeric" : "Prc_Noir is not Numeric or floating point value");
-                    if (!valid) {weeklyReviewByRevenueAndBackordersModel.setPrcNoir(0.0f);}
+                    this.FieldValidationCheckDetailsFunC.setText(valid ? "Prc_Noir is Numeric" : "Prc_Noir is not Numeric");
                     break;
             case 6 :
-                    this.FieldValidationCheckDetailsFunC.setText(valid ? "Bko_Rose is Numeric" : "Bko_Rose is not Numeric or integer");
-                    if (!valid) {weeklyReviewByRevenueAndBackordersModel.setBackorderVolumeRose(0);}
+                    this.FieldValidationCheckDetailsFunC.setText(valid ? "Bko_Rose is Numeric" : "Bko_Rose is not Numeric or Integer");
                     break;
             case 7 :
-                    this.FieldValidationCheckDetailsFunC.setText(valid ? "Bko_Noir is Numeric" : "Bko_Noir is not Numeric or integer");
-                    if (!valid) {weeklyReviewByRevenueAndBackordersModel.setBackorderVolumeNoir(0);}
+                    this.FieldValidationCheckDetailsFunC.setText(valid ? "Bko_Noir is Numeric" : "Bko_Noir is not Numeric or Integer");
                     break;
             default : this.FieldValidationCheckDetailsFunC.setText("");
         }
@@ -199,27 +154,47 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
     }
 
     private void syncNumYearValue() {
-        // numeric validation amd numWeek range validation 2301 - 2315
-        boolean validInput = weeklyReviewByRevenueAndBackordersModel.isValidNumWeek(this.NumYearValueFunC.getText());
+        if (weeklyReviewByRevenueAndBackordersModel.isEmptyField(this.NumYearValueFunC.getText())) {
+            // set validation message
+            this.syncFieldValidationCheckDetails(0, true);
+            this.releaseAllFields();
+            // store value into data model
+            weeklyReviewByRevenueAndBackordersModel.setWeekOfYear(Integer.MIN_VALUE);
+            logger.info("NumYear change to null");
+            return;
+        }
         // set validation message
+        boolean validInput = weeklyReviewByRevenueAndBackordersModel.isValidWeekOfYear(this.NumYearValueFunC.getText());
         this.syncFieldValidationCheckDetails(1, validInput);
         if (!validInput) {
+            weeklyReviewByRevenueAndBackordersModel.setWeekOfYear(Integer.MIN_VALUE);
             this.fieldID = new int[]{2, 3, 4, 5, 6, 7};
             this.lockOtherFields();
             return;
         }
         this.releaseAllFields();
         // store value into data model
-        weeklyReviewByRevenueAndBackordersModel.setNumWeek(Integer.parseInt(this.NumYearValueFunC.getText()));
+        weeklyReviewByRevenueAndBackordersModel.setWeekOfYear(Integer.parseInt(this.NumYearValueFunC.getText()));
         logger.info("NumYear change to {}", this.NumYearValueFunC.getText());
     }
 
     private void syncCapLabourValue() {
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueAndBackordersModel.isNumeric(this.CapLaborValueFunC.getText()) && weeklyReviewByRevenueAndBackordersModel.isInteger(this.CapLaborValueFunC.getText());
+        if (weeklyReviewByRevenueAndBackordersModel.isEmptyField(this.CapLaborValueFunC.getText())) {
+            // set validation message
+            this.syncFieldValidationCheckDetails(0, true);
+            this.releaseAllFields();
+            // store value into data model
+            weeklyReviewByRevenueAndBackordersModel.setCapLabour(Integer.MIN_VALUE);
+            logger.info("CapLabor change to null");
+            return;
+        }
+        // numeric validation
+        boolean validInput = weeklyReviewByRevenueAndBackordersModel.isInteger(this.CapLaborValueFunC.getText());
         // set validation message
         this.syncFieldValidationCheckDetails(2, validInput);
         if (!validInput) {
+            weeklyReviewByRevenueAndBackordersModel.setCapLabour(Integer.MIN_VALUE);
             this.fieldID = new int[]{1, 3, 4, 5, 6, 7};
             this.lockOtherFields();
             return;
@@ -227,15 +202,25 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         this.releaseAllFields();
         // store value into data model
         weeklyReviewByRevenueAndBackordersModel.setCapLabour(Integer.parseInt(this.CapLaborValueFunC.getText()));
-        logger.info("NumYear change to {}", this.CapLaborValueFunC.getText());
+        logger.info("CapLabor change to {}", this.CapLaborValueFunC.getText());
     }
 
     public void syncCapGrapeValue() {
+        if (weeklyReviewByRevenueAndBackordersModel.isEmptyField(this.CapGrapeValueFunC.getText())) {
+            // set validation message
+            this.syncFieldValidationCheckDetails(0, true);
+            this.releaseAllFields();
+            // store value into data model
+            weeklyReviewByRevenueAndBackordersModel.setCapGrape(Integer.MIN_VALUE);
+            logger.info("CapGrape change to null");
+            return;
+        }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueAndBackordersModel.isNumeric(this.CapGrapeValueFunC.getText()) && weeklyReviewByRevenueAndBackordersModel.isInteger(this.CapGrapeValueFunC.getText());
+        boolean validInput = weeklyReviewByRevenueAndBackordersModel.isInteger(this.CapGrapeValueFunC.getText());
         // set validation message
         this.syncFieldValidationCheckDetails(3, validInput);
         if (!validInput) {
+            weeklyReviewByRevenueAndBackordersModel.setCapGrape(Integer.MIN_VALUE);
             this.fieldID = new int[]{1, 2, 4, 5, 6, 7};
             this.lockOtherFields();
             return;
@@ -247,11 +232,21 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
     }
 
     private void syncPrcRoseValue() {
+        if (weeklyReviewByRevenueAndBackordersModel.isEmptyField(this.PrcRoseValueFunC.getText())) {
+            // set validation message
+            this.syncFieldValidationCheckDetails(0, true);
+            this.releaseAllFields();
+            // store value into data model
+            weeklyReviewByRevenueAndBackordersModel.setPrcRose(Float.MIN_VALUE);
+            logger.info("PrcRose change to null");
+            return;
+        }
         // numeric validation
         boolean validInput = weeklyReviewByRevenueAndBackordersModel.isNumeric(this.PrcRoseValueFunC.getText());
         // set validation message
         this.syncFieldValidationCheckDetails(4, validInput);
         if (!validInput) {
+            weeklyReviewByRevenueAndBackordersModel.setPrcRose(Float.MIN_VALUE);
             this.fieldID = new int[]{1, 2, 3, 5, 6, 7};
             this.lockOtherFields();
             return;
@@ -259,15 +254,25 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         this.releaseAllFields();
         // store value into data model
         weeklyReviewByRevenueAndBackordersModel.setPrcRose(Float.parseFloat(this.PrcRoseValueFunC.getText()));
-        logger.info("NumYear change to {}", this.PrcRoseValueFunC.getText());
+        logger.info("PrcRose change to {}", this.PrcRoseValueFunC.getText());
     }
 
     private void syncPrcNoirValue() {
+        if (weeklyReviewByRevenueAndBackordersModel.isEmptyField(this.PrcNoirValueFunC.getText())) {
+            // set validation message
+            this.syncFieldValidationCheckDetails(0, true);
+            this.releaseAllFields();
+            // store value into data model
+            weeklyReviewByRevenueAndBackordersModel.setPrcNoir(Float.MIN_VALUE);
+            logger.info("PrcNoir change to null");
+            return;
+        }
         // numeric validation
         boolean validInput = weeklyReviewByRevenueAndBackordersModel.isNumeric(this.PrcNoirValueFunC.getText());
         // validation message
         this.syncFieldValidationCheckDetails(5, validInput);
         if (!validInput) {
+            weeklyReviewByRevenueAndBackordersModel.setPrcNoir(Float.MIN_VALUE);
             this.fieldID = new int[]{1, 2, 3, 4, 6, 7};
             this.lockOtherFields();
             return;
@@ -275,15 +280,25 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         this.releaseAllFields();
         // store value into data model
         weeklyReviewByRevenueAndBackordersModel.setPrcNoir(Float.parseFloat(this.PrcNoirValueFunC.getText()));
-        logger.info("NumYear change to {}", this.PrcNoirValueFunC.getText());
+        logger.info("PrcNoir change to {}", this.PrcNoirValueFunC.getText());
     }
 
     private void syncBkoRoseValue() {
+        if (weeklyReviewByRevenueAndBackordersModel.isEmptyField(this.BkoRoseValueFunC.getText())) {
+            // set validation message
+            this.syncFieldValidationCheckDetails(0, true);
+            this.releaseAllFields();
+            // store value into data model
+            weeklyReviewByRevenueAndBackordersModel.setBackorderVolumeRose(Integer.MIN_VALUE);
+            logger.info("bkoRose change to null");
+            return;
+        }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueAndBackordersModel.isNumeric(this.BkoRoseValueFunC.getText()) && weeklyReviewByRevenueAndBackordersModel.isInteger(this.BkoRoseValueFunC.getText());
+        boolean validInput = weeklyReviewByRevenueAndBackordersModel.isInteger(this.BkoRoseValueFunC.getText());
         // validation message
         this.syncFieldValidationCheckDetails(6, validInput);
         if (!validInput) {
+            weeklyReviewByRevenueAndBackordersModel.setBackorderVolumeRose(Integer.MIN_VALUE);
             this.fieldID = new int[]{1, 2, 3, 4, 5, 7};
             this.lockOtherFields();
             return;
@@ -291,15 +306,25 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         this.releaseAllFields();
         // store value into data model
         weeklyReviewByRevenueAndBackordersModel.setBackorderVolumeRose(Integer.parseInt(this.BkoRoseValueFunC.getText()));
-        logger.info("NumYear change to {}", this.BkoRoseValueFunC.getText());
+        logger.info("bkoRose change to {}", this.BkoRoseValueFunC.getText());
     }
 
     private void syncBkoNoirValue() {
+        if (weeklyReviewByRevenueAndBackordersModel.isEmptyField(this.BkoNoirValueFunC.getText())) {
+            // set validation message
+            this.syncFieldValidationCheckDetails(0, true);
+            this.releaseAllFields();
+            // store value into data model
+            weeklyReviewByRevenueAndBackordersModel.setBackorderVolumeNoir(Integer.MIN_VALUE);
+            logger.info("bkoNoir change to null");
+            return;
+        }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueAndBackordersModel.isNumeric(this.BkoNoirValueFunC.getText()) && weeklyReviewByRevenueAndBackordersModel.isInteger(this.BkoNoirValueFunC.getText());
+        boolean validInput = weeklyReviewByRevenueAndBackordersModel.isInteger(this.BkoNoirValueFunC.getText());
         // validation message
         this.syncFieldValidationCheckDetails(7, validInput);
         if (!validInput) {
+            weeklyReviewByRevenueAndBackordersModel.setBackorderVolumeNoir(Integer.MIN_VALUE);
             this.fieldID = new int[]{1, 2, 3, 4, 5, 6};
             this.lockOtherFields();
             return;
@@ -307,7 +332,7 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         this.releaseAllFields();
         // store value into data model
         weeklyReviewByRevenueAndBackordersModel.setBackorderVolumeNoir(Integer.parseInt(this.BkoNoirValueFunC.getText()));
-        logger.info("NumYear change to {}", this.BkoNoirValueFunC.getText());
+        logger.info("bkoNoir change to {}", this.BkoNoirValueFunC.getText());
     }
 
     // Field Validations
@@ -331,7 +356,7 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
     }
 
     public void setValueAgain(){
-        this.weeklyReviewByRevenueAndBackordersModel.setNumWeek(Integer.parseInt(this.NumYearValueFunC.getText()));
+        this.weeklyReviewByRevenueAndBackordersModel.setWeekOfYear(Integer.parseInt(this.NumYearValueFunC.getText()));
         this.weeklyReviewByRevenueAndBackordersModel.setCapLabour(Integer.parseInt(this.CapLaborValueFunC.getText()));
         this.weeklyReviewByRevenueAndBackordersModel.setCapGrape(Integer.parseInt(this.CapGrapeValueFunC.getText()));
         this.weeklyReviewByRevenueAndBackordersModel.setPrcRose(Float.parseFloat(this.PrcRoseValueFunC.getText()));
@@ -347,7 +372,7 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
     @FXML
     void runCalculationFunC(ActionEvent event) {
         logger.info("Input fields NumYear={}, CapLabour={}, CapGrape={}, PrcRose={}, PrcNoir={}, BkoRose={}, BkoNoir={}",
-                this.weeklyReviewByRevenueAndBackordersModel.getNumWeek(),
+                this.weeklyReviewByRevenueAndBackordersModel.getWeekOfYear(),
                 this.weeklyReviewByRevenueAndBackordersModel.getCapLabour(),
                 this.weeklyReviewByRevenueAndBackordersModel.getCapGrape(),
                 this.weeklyReviewByRevenueAndBackordersModel.getPrcRose(),
@@ -374,20 +399,21 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         int[] remainingResourceAfterBackorders = this.weeklyReviewByRevenueAndBackordersModel.calculateLabourAndGrapeSurplus(this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose(),
                 this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir());
         int originalCapGrape = this.weeklyReviewByRevenueAndBackordersModel.getCapGrape();
-        if (remainingResourceAfterBackorders[0] >= 0 && remainingResourceAfterBackorders[1] >= 0) {
+        boolean enough = remainingResourceAfterBackorders[0] >= 0 && remainingResourceAfterBackorders[1] >= 0;
+        if (enough) {
             this.weeklyReviewByRevenueAndBackordersModel.setCapLabour(remainingResourceAfterBackorders[0]);
             this.weeklyReviewByRevenueAndBackordersModel.setCapGrape(remainingResourceAfterBackorders[1]);
         }
         OptimalSalesRevenueModel optimalSalesRevenue = this.weeklyReviewByRevenueAndBackordersModel.calculateOptimalProductionValue();
-        this.DisplayOptRoseValueFunC.setText(remainingResourceAfterBackorders[0] >= 0 && remainingResourceAfterBackorders[1] >= 0 ? Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose()) : Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose()));
-        this.DisplayOptNoirValueFunC.setText(remainingResourceAfterBackorders[0] >= 0 && remainingResourceAfterBackorders[1] >= 0 ? Integer.toString(optimalSalesRevenue.getOptimalLitresOfNoir() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir()) : Integer.toString(optimalSalesRevenue.getOptimalLitresOfNoir()));
-        this.DisplayTotalValueFunC.setText(remainingResourceAfterBackorders[0] >= 0 && remainingResourceAfterBackorders[1] >= 0 ? Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose() + optimalSalesRevenue.getOptimalLitresOfNoir() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir()) : Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose() + optimalSalesRevenue.getOptimalLitresOfNoir()));
-        this.DisplayTotalRevenueValueFunC.setText(remainingResourceAfterBackorders[0] >= 0 && remainingResourceAfterBackorders[1] >= 0 ? Float.toString(optimalSalesRevenue.getOptimalSalesRevenue() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose() * this.weeklyReviewByRevenueAndBackordersModel.getPrcRose() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir() * this.weeklyReviewByRevenueAndBackordersModel.getPrcNoir()) : Float.toString(optimalSalesRevenue.getOptimalSalesRevenue()));
-        this.DisplayBackorderFulfilmentValueFunC.setText(remainingResourceAfterBackorders[0] >= 0 && remainingResourceAfterBackorders[1] >= 0 ? "Yes" : "No");
-        this.DisplayBackorderFulfilmentMeaningFunC.setText(remainingResourceAfterBackorders[0] >= 0 && remainingResourceAfterBackorders[1] >= 0 ? "Resourcue of labor and grape are sufficient\nto produce all backorders of Rosé + P.Noir" : "Resourcue of labor and grape are insufficient\nto produce all backorders of Rosé + P.Noir");
+        this.DisplayOptRoseValueFunC.setText(enough ? Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose()) : Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose()));
+        this.DisplayOptNoirValueFunC.setText(enough ? Integer.toString(optimalSalesRevenue.getOptimalLitresOfNoir() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir()) : Integer.toString(optimalSalesRevenue.getOptimalLitresOfNoir()));
+        this.DisplayTotalValueFunC.setText(enough ? Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose() + optimalSalesRevenue.getOptimalLitresOfNoir() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir()) : Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose() + optimalSalesRevenue.getOptimalLitresOfNoir()));
+        this.DisplayTotalRevenueValueFunC.setText(enough ? this.convertToCommaSeparatedString(Math.round(optimalSalesRevenue.getOptimalSalesRevenueNonRoundOff() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose() * this.weeklyReviewByRevenueAndBackordersModel.getPrcRose() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir() * this.weeklyReviewByRevenueAndBackordersModel.getPrcNoir())) : this.convertToCommaSeparatedString(Math.round(optimalSalesRevenue.getOptimalSalesRevenue())));
+        this.DisplayBackorderFulfilmentValueFunC.setText(enough ? "Yes" : "No");
+        this.DisplayBackorderFulfilmentMeaningFunC.setText(enough ? "Resourcue of labor and grape are sufficient\nto produce all backorders of Rosé + P.Noir" : "Resourcue of labor and grape are insufficient\nto produce all backorders of Rosé + P.Noir");
         return new int[]{
-                remainingResourceAfterBackorders[0] >= 0 && remainingResourceAfterBackorders[1] >= 0 ? optimalSalesRevenue.getOptimalLitresOfRose() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose() : optimalSalesRevenue.getOptimalLitresOfRose(),
-                remainingResourceAfterBackorders[0] >= 0 && remainingResourceAfterBackorders[1] >= 0 ? optimalSalesRevenue.getOptimalLitresOfNoir() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir() : optimalSalesRevenue.getOptimalLitresOfNoir(),
+                enough ? optimalSalesRevenue.getOptimalLitresOfRose() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose() : optimalSalesRevenue.getOptimalLitresOfRose(),
+                enough ? optimalSalesRevenue.getOptimalLitresOfNoir() + this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir() : optimalSalesRevenue.getOptimalLitresOfNoir(),
                 originalCapGrape
         };
     }

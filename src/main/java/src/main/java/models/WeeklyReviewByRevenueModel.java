@@ -35,7 +35,7 @@ public class WeeklyReviewByRevenueModel extends RevenueCalculationModel {
     }
 
     public boolean wineProductionCapacityOverloadedOnGrape(int optRose, int optNoir) {
-        return this.weeklyReviewByRevenueImpl.wineProductionCapacityOverloadedOnGrape(optRose, optNoir, this.getMAX_PRODUCTION_CAPACITY_OF_MANUFACTURING_FACILITIES());
+        return this.weeklyReviewByRevenueImpl.wineProductionCapacityOverloadedOnGrape(optRose, optNoir, 1);
     }
 
     public boolean grapeResourceUtilizationIsInsufficientDueToInsufficientLabourSupplied(int optRose, int optNoir, int capGrape) {

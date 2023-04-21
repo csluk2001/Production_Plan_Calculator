@@ -53,6 +53,23 @@ public class WeeklyReviewByRevenueController implements Initializable {
         weeklyReviewByRevenueModel = new WeeklyReviewByRevenueModel();
     }
 
+    public String convertToCommaSeparatedString(int input) {
+        StringBuilder sb = new StringBuilder();
+        String str = Integer.toString(Math.abs(input));
+        int len = str.length();
+        int count = 0;
+        for (int i = len - 1; i >= 0; i--) {
+            sb.append(str.charAt(i));
+            count++;
+            if (count % 3 == 0 && i != 0) {
+                sb.append(",");
+            }
+        }
+        if (input < 0) {
+            sb.append("-");
+        }
+        return sb.reverse().toString();
+    }
     private void syncNumYearValue() {
         if (weeklyReviewByRevenueModel.isEmptyField(this.NumYearValue.getText())) {
             // set validation message
@@ -168,8 +185,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
             return;
         }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueModel.isEmptyField(this.PrcNoirValue.getText()) ||
-                weeklyReviewByRevenueModel.isNumeric(this.PrcNoirValue.getText());
+        boolean validInput = weeklyReviewByRevenueModel.isNumeric(this.PrcNoirValue.getText());
         // validation message
         this.syncFieldValidationCheckDetails(5, validInput);
         if (!validInput) {
@@ -273,7 +289,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
         this.DisplayOptRoseValue.setText(Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose()));
         this.DisplayOptNoirValue.setText(Integer.toString(optimalSalesRevenue.getOptimalLitresOfNoir()));
         this.DisplayTotalValue.setText(Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose() + optimalSalesRevenue.getOptimalLitresOfNoir()));
-        this.DisplayTotalRevenueValue.setText(Float.toString(optimalSalesRevenue.getOptimalSalesRevenue()));
+        this.DisplayTotalRevenueValue.setText(this.convertToCommaSeparatedString(optimalSalesRevenue.getOptimalSalesRevenue()));
         int[] labourAndGrapeSurplus = this.weeklyReviewByRevenueModel.calculateLabourAndGrapeSurplus(optimalSalesRevenue.getOptimalLitresOfRose(), optimalSalesRevenue.getOptimalLitresOfNoir());
         // ii.f: If Sur_Labor > 0 but not enough to produce a bottle of any type of wines, set it to zero.
         this.DisplayLabourSurplusValue.setText(labourAndGrapeSurplus[0] > 1 && labourAndGrapeSurplus[0] < 6 && labourAndGrapeSurplus[0] < 4 ? "0" : Integer.toString(labourAndGrapeSurplus[0]));
