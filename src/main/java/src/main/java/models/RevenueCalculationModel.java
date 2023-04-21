@@ -35,16 +35,16 @@ public class RevenueCalculationModel {
     final float STANDARD_MAN_POWER_PER_HEAD = 37.5f;
     final int LABOUR_COST_RATE_PER_WEEK = 935;
 
-    private int numWeek = 0;
-    private int capLabour = 0;
-    private int capGrape = 0;
-    private float prcRose = 0f;
-    private float prcNoir = 0f;
+    private int WeekOfYear = Integer.MIN_VALUE;
+    private int capLabour = Integer.MIN_VALUE;
+    private int capGrape = Integer.MIN_VALUE;
+    private float prcRose = Float.MIN_VALUE;
+    private float prcNoir = Float.MIN_VALUE;
 
-    private int backorderVolumeRose = 0;
-    private int backorderVolumeNoir = 0;
-    private int remainingCapLabourAfterBackorder = 0;
-    private int remainingCapGrapeAfterBackorder = 0;
+    private int backorderVolumeRose = Integer.MIN_VALUE;
+    private int backorderVolumeNoir = Integer.MIN_VALUE;
+    private int remainingCapLabourAfterBackorder = Integer.MIN_VALUE;
+    private int remainingCapGrapeAfterBackorder = Integer.MIN_VALUE;
 
 
     public boolean isNumeric(String input) {
@@ -52,12 +52,18 @@ public class RevenueCalculationModel {
                 && !input.equals(""); // Not Null string
     }
 
-    public boolean isInteger(String input) { return input.matches("^\\d+$");} // only contains 0 - 9 digits}
+    public boolean isInteger(String input) {
+        return input.matches("^\\d+$"); // only contains 0 - 9 digits
+    }
 
-    public boolean isValidNumWeek(String input) {
-        if (this.isNumeric(input) && isInteger(input)) {
-            int numWeek = Integer.parseInt(input);
-            return (2301 <= numWeek && numWeek <= 2315); // Week of the year should be in range from 2301 to 2315.
+    public boolean isEmptyField(String input) {
+        return input.equals("");
+    }
+
+    public boolean isValidWeekOfYear(String input) {
+        if (this.isNumeric(input) && isInteger(input) || this.isEmptyField(input)) {
+            int numOfWeek = Integer.parseInt(input);
+            return (2301 <= numOfWeek && numOfWeek <= 2315); // Week of the year should be in range from 2301 to 2315.
         }
         return false;
     }
