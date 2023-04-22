@@ -11,7 +11,9 @@ import java.util.Objects;
 public class ApplicationMainMenuController {
     @FXML
     private void invokeFunctionA() throws IOException {
-        Main.stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/frontend/annualForecastByGrossProfit.fxml")))));
+        Scene AnnualForecastGrossProfitScene = new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/frontend/annualForecastByGrossProfit.fxml"))));
+        AnnualForecastGrossProfitScene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/static/annualForecastByGrossProfit.css")).toExternalForm());
+        Main.stage.setScene(AnnualForecastGrossProfitScene);
     }
 
     @FXML
