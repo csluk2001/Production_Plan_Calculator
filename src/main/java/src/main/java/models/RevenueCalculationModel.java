@@ -41,6 +41,7 @@ public class RevenueCalculationModel {
     private float prcRose = Float.MIN_VALUE;
     private float prcNoir = Float.MIN_VALUE;
 
+    private int FixedCosts=Integer.MIN_VALUE;
     private int backorderVolumeRose = Integer.MIN_VALUE;
     private int backorderVolumeNoir = Integer.MIN_VALUE;
     private int remainingCapLabourAfterBackorder = Integer.MIN_VALUE;
