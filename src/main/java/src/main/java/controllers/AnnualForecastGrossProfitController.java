@@ -29,61 +29,22 @@ public class AnnualForecastGrossProfitController implements Initializable {
     private int[] fieldID;
 
     @FXML
-    private Label AnnualForecastByGrossProfitTitle;
-
-    @FXML
-    private AnchorPane AnnualForestByGrossProfitTitle;
-
-    @FXML
-    private Label CapGrapeItemNameFunA;
-
-    @FXML
-    private Label CapGrapeUnitFunA;
-
-    @FXML
     private TextField CapGrapeValueFunA;
 
     @FXML
     private TextField CapLaborValueFunA;
 
     @FXML
-    private Label CapLabourItemNameFunA;
-
-    @FXML
-    private Label CapLabourUnitFunA;
-
-    @FXML
-    private Label DisplayOptNoirLabelFunA;
-
-    @FXML
     private Label DisplayOptNoirValueFunA;
-
-    @FXML
-    private Label DisplayOptRoseLabelFunA;
 
     @FXML
     private Label DisplayOptRoseValueFunA;
 
     @FXML
-    private AnchorPane DisplayPortalFunA;
-
-    @FXML
-    private AnchorPane DisplayProductionVolumePaneFunA;
-
-    @FXML
-    private Label DisplayProductionVolumeTitleFunA;
-
-    @FXML
     private Label DisplayProfitMarginFunA;
 
     @FXML
-    private Label DisplayTitleFunA;
-
-    @FXML
     private Label DisplayTotalGrossProfitFunA;
-
-    @FXML
-    private Label DisplayTotalLabelFunA;
 
     @FXML
     private Label DisplayTotalValueFunA;
@@ -95,40 +56,13 @@ public class AnnualForecastGrossProfitController implements Initializable {
     private Label FieldValidationErrorMessageFunA;
 
     @FXML
-    private Label FieldValidationTitleFunA;
-
-    @FXML
-    private Label FixedCostsFunA;
-
-    @FXML
-    private Label FixedCostsUnitFunA;
-
-    @FXML
     private TextField FixedCostsValueFunA;
-
-    @FXML
-    private Label NumWeekFunA;
-
-    @FXML
-    private Label NumWeekUnitFunA;
 
     @FXML
     private TextField NumWeekValueFunA;
 
     @FXML
-    private Label PrcNoirItemNameFunA;
-
-    @FXML
-    private Label PrcNoirUnitFunA;
-
-    @FXML
     private TextField PrcNoirValueFunA;
-
-    @FXML
-    private Label PrcRoseItemNameFunA;
-
-    @FXML
-    private Label PrcRoseUnitFunA;
 
     @FXML
     private TextField PrcRoseValueFunA;
@@ -171,6 +105,11 @@ public class AnnualForecastGrossProfitController implements Initializable {
             sb.append("-");
         }
         return sb.reverse().toString();
+    }
+
+    private float roundToOneDp (float value, int precision) {
+        int scale = (int) Math.pow(10, precision);
+        return (float) Math.round(value * scale) / scale;
     }
 
     private boolean checkAllFieldsFilledFunA() {
@@ -397,15 +336,15 @@ public class AnnualForecastGrossProfitController implements Initializable {
     }
 
 
-    private void abnormalSituationValidationsFunA() {
+    private void abnormalSituationValidationsFunA(int [] opt_Litre) {
         final String errorMsg1 = "w1: Insufficient production capacity to produce the optimal mix, please reduce or adjust the capacity of\nlabor & grape volume!";
         final String errorMsg2 = "w2: Insufficient labor supplied to utilize the grape resource (less than 90%)!";
         final String errorMsg12 = errorMsg1 + "\n" + errorMsg2;
-        if (!this.determineInsufficientProductionCapacityForOptimalMix() && !this.determineInsufficientLabourSupplyForSatisfiedGrapeResourceUtilization()) {
+        if (this.annualForecastGrossProfitModel.getMAX_PRODUCTION_CAPACITY_OF_MANUFACTURING_FACILITIES() * this.annualForecastGrossProfitModel.getWeekOfYear() >= opt_Litre[0] + opt_Litre[1] && !this.determineInsufficientLabourSupplyForSatisfiedGrapeResourceUtilization()) {
             // Do nothing
-        } else if (this.determineInsufficientProductionCapacityForOptimalMix() && this.determineInsufficientLabourSupplyForSatisfiedGrapeResourceUtilization()) {
+        } else if (this.annualForecastGrossProfitModel.getMAX_PRODUCTION_CAPACITY_OF_MANUFACTURING_FACILITIES() * this.annualForecastGrossProfitModel.getWeekOfYear() < opt_Litre[0] + opt_Litre[1] && this.determineInsufficientLabourSupplyForSatisfiedGrapeResourceUtilization()) {
             this.FieldValidationErrorMessageFunA.setText(errorMsg12);
-        } else if (this.determineInsufficientProductionCapacityForOptimalMix()) {
+        } else if (this.annualForecastGrossProfitModel.getMAX_PRODUCTION_CAPACITY_OF_MANUFACTURING_FACILITIES() * this.annualForecastGrossProfitModel.getWeekOfYear() < opt_Litre[0] + opt_Litre[1]) {
             this.FieldValidationErrorMessageFunA.setText(errorMsg1);
         } else {
             this.FieldValidationErrorMessageFunA.setText(errorMsg2);
@@ -457,13 +396,13 @@ public class AnnualForecastGrossProfitController implements Initializable {
         this.setValueAgain();
 
         // Calculate optimal Total Gross Profit and display them on the right of the panel
-        this.calculateAndDisplayTotalGrossProfit();
+        int [] opt_Litre = this.calculateAndDisplayTotalGrossProfit();
 
         // Validate data and pop error message if needed
-        this.abnormalSituationValidationsFunA();
+        this.abnormalSituationValidationsFunA(opt_Litre);
     }
 
-    private void calculateAndDisplayTotalGrossProfit() {
+    private int [] calculateAndDisplayTotalGrossProfit() {
         OptimalSalesRevenueModel optimalSalesRevenue = this.annualForecastGrossProfitModel.calculateOptimalProductionValue();
         this.DisplayOptRoseValueFunA.setText(Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose()));
         this.DisplayOptNoirValueFunA.setText(Integer.toString(optimalSalesRevenue.getOptimalLitresOfNoir()));
@@ -472,9 +411,12 @@ public class AnnualForecastGrossProfitController implements Initializable {
         int VCL=((optimalSalesRevenue.getOptimalLitresOfRose() * this.annualForecastGrossProfitModel.getROSE_CONSUMPTION_TO_MAKE_A_LITRE_OF_WINE_LABOUR())+(optimalSalesRevenue.getOptimalLitresOfNoir() * this.annualForecastGrossProfitModel.getNOIR_CONSUMPTION_TO_MAKE_A_LITRE_OF_WINE_LABOUR()));
         float labor_rate=((this.annualForecastGrossProfitModel.getLABOUR_COST_RATE_PER_WEEK())/this.annualForecastGrossProfitModel.getSTANDARD_MAN_POWER_PER_HEAD()/60);
         float profit=(sale_revenue-(VCL*labor_rate)-this.annualForecastGrossProfitModel.getFixedCosts());
-        this.DisplayTotalGrossProfitFunA.setText(Integer.toString(Math.round(profit)));
-        this.DisplayProfitMarginFunA.setText(Float.toString(profit/sale_revenue*100));
-
+        this.DisplayTotalGrossProfitFunA.setText(this.convertToCommaSeparatedString(Math.round(profit)));
+        this.DisplayProfitMarginFunA.setText(Float.toString(this.roundToOneDp(profit/sale_revenue*100, 1)));
+        return new int[] {
+                optimalSalesRevenue.getOptimalLitresOfRose(),
+                optimalSalesRevenue.getOptimalLitresOfRose()
+        };
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
