@@ -23,72 +23,121 @@ import src.main.java.Main;
 import src.main.java.models.OptimalSalesRevenueModel;
 import src.main.java.models.AnnualForecastGrossProfitModel;
 
+/**
+ * This class is a Controller for PPC1 Function_A GUI /resource/frontend/annualForecastByGrossProfit.fxml.
+ * It handles the logic of the UI components and communicates with the model to update the data.
+ * @author CHAN, Chun Wai Tommy GitHub id: iawiawiaw
+ * @version Java15
+ */
+
 public class AnnualForecastGrossProfitController implements Initializable {
+
+    /**
+     * The logger for debugging.
+     */
     final Logger logger = LoggerFactory.getLogger(getClass());
+
+    /**
+     * The "AnnualForecastGrossProfitModel" data model for this controller.
+     */
     private final AnnualForecastGrossProfitModel annualForecastGrossProfitModel;
+
+    /**
+     * The IDs of the fields that should be locked while one field is being edited.
+     */
     private int[] fieldID;
 
+    /**
+     * The input field for the grape capacity.
+     */
     @FXML
     private TextField CapGrapeValueFunA;
 
+    /**
+     * The input field for the labor capacity
+     */
     @FXML
     private TextField CapLaborValueFunA;
 
+    /**
+     * The label for displaying the optimal noir wine production value.
+     */
     @FXML
     private Label DisplayOptNoirValueFunA;
 
+    /**
+     * The label for displaying the optimal rose wine production value.
+     */
     @FXML
     private Label DisplayOptRoseValueFunA;
 
+    /**
+     * The label for displaying the marginal profit of production based on profit and sale_revenue.
+     */
     @FXML
     private Label DisplayProfitMarginFunA;
 
+    /**
+     * The label for displaying the gross profit of production based on sales revenue, variable cost of labor and fixed cost.
+     */
     @FXML
     private Label DisplayTotalGrossProfitFunA;
 
+    /**
+     * The label for displaying the total mixed of both optimal production of wine.
+     */
     @FXML
     private Label DisplayTotalValueFunA;
 
+    /**
+     * The label for displaying field validation check details.
+     */
     @FXML
     private Label FieldValidationCheckDetailsFunA;
 
+    /**
+     * The label for displaying field validation error messages.
+     */
     @FXML
     private Label FieldValidationErrorMessageFunA;
 
+    /**
+     * The input field for the fixed cost.
+     */
     @FXML
     private TextField FixedCostsValueFunA;
 
+    /**
+     * The input field for the number of week.
+     */
     @FXML
     private TextField NumWeekValueFunA;
 
+    /**
+     * The input field for the price of the noir wine.
+     */
     @FXML
     private TextField PrcNoirValueFunA;
 
+    /**
+     * The input field for the price of the rose wine.
+     */
     @FXML
     private TextField PrcRoseValueFunA;
 
-    @FXML
-    private Label ProfitMarginTitleFunA;
-
-    @FXML
-    private Label ProfitMarginUnitFunA;
-
-    @FXML
-    private Label TotalGrossProfitTitleFunA;
-
-    @FXML
-    private Label TotalGrossProfitUnitFunA;
-
-    @FXML
-    private Button button_exit_FunA;
-
-    @FXML
-    private Button button_run_FunA;
-
+    /**
+     * Constructor for the controller. Initializes the data model.
+     */
     public AnnualForecastGrossProfitController() {
         annualForecastGrossProfitModel = new AnnualForecastGrossProfitModel();
     }
 
+    /**
+     * Converts an integer input to a comma-separated string.
+     *
+     * @param input the integer to convert
+     * @return the comma-separated string representation of the input
+     */
     public String convertToCommaSeparatedString(int input) {
         StringBuilder sb = new StringBuilder();
         String str = Integer.toString(Math.abs(input));
@@ -107,11 +156,21 @@ public class AnnualForecastGrossProfitController implements Initializable {
         return sb.reverse().toString();
     }
 
-    private float roundToOneDp (float value, int precision) {
+    /**
+     * Round off a floating point number to N decimal place
+     * @param value that is floating point data type
+     * @param precision that specify the decimal place N that wants to round off
+     * @return a floating point value that is rounded off to N decimal place
+     */
+    private float roundToNDp (float value, int precision) {
         int scale = (int) Math.pow(10, precision);
         return (float) Math.round(value * scale) / scale;
     }
 
+    /**
+     * Checks if all the required fields are filled.
+     * @return {@code true} if all required fields are filled, {@code true} otherwise.
+     */
     private boolean checkAllFieldsFilledFunA() {
         return !(this.annualForecastGrossProfitModel.getWeekOfYear() == Integer.MIN_VALUE ||
                 this.annualForecastGrossProfitModel.getCapGrape() == Integer.MIN_VALUE ||
@@ -121,7 +180,12 @@ public class AnnualForecastGrossProfitController implements Initializable {
                 this.annualForecastGrossProfitModel.getFixedCosts() == Integer.MIN_VALUE);
     }
 
-
+    /**
+     * Updates the FieldValidationCheckDetailsFunA label with the appropriate message based on the inputFieldID and valid flag.
+     *
+     * @param inputFieldID an integer representing the input field being validated
+     * @param valid a boolean flag indicating whether the input is correct is or not
+     */
     private void syncFieldValidationCheckDetails(int inputFieldID, boolean valid) {
         /*
             inputFieldID:
@@ -155,6 +219,9 @@ public class AnnualForecastGrossProfitController implements Initializable {
         }
     }
 
+    /**
+     * Enables the editing capabilities of all the fields and resets the fieldID array.
+     */
     private void releaseAllFields() {
         this.fieldID = new int[6];
         this.NumWeekValueFunA.setEditable(true);
@@ -165,6 +232,9 @@ public class AnnualForecastGrossProfitController implements Initializable {
         this.FixedCostsValueFunA.setEditable(true);
     }
 
+    /**
+     * Disables the editing capabilities of all the fields except for FieldID 0.
+     */
     private void lockOtherFields() {
         for (int id : this.fieldID) {
             switch (id) {
@@ -178,6 +248,10 @@ public class AnnualForecastGrossProfitController implements Initializable {
         }
     }
 
+    /**
+     * This method synchronizes the value of the NumYearValueFunA text field with
+     * the annualForecastGrossProfitModel's weekOfYear property.
+     */
     private void syncNumWeekValue() {
         if (annualForecastGrossProfitModel.isEmptyField(this.NumWeekValueFunA.getText())) {
             // set validation message
@@ -203,6 +277,10 @@ public class AnnualForecastGrossProfitController implements Initializable {
         logger.info("NumWeek change to {}", this.NumWeekValueFunA.getText());
     }
 
+    /**
+     * Synchronizes the value of CapLabourValueFunA with the data model, validates it and updates the field's validation
+     * message label.
+     */
     private void syncCapLabourValue() {
         // numeric validation
         if (annualForecastGrossProfitModel.isEmptyField(this.CapLaborValueFunA.getText())) {
@@ -230,6 +308,10 @@ public class AnnualForecastGrossProfitController implements Initializable {
         logger.info("CapLabor change to {}", this.CapLaborValueFunA.getText());
     }
 
+    /**
+     * Synchronizes the value of CapGrapeValueFunA with the data model, validates it and updates the field's validation
+     * message label.
+     */
     public void syncCapGrapeValue() {
         if (annualForecastGrossProfitModel.isEmptyField(this.CapGrapeValueFunA.getText())) {
             // set validation message
@@ -256,6 +338,10 @@ public class AnnualForecastGrossProfitController implements Initializable {
         logger.info("NumYear change to {}", this.CapGrapeValueFunA.getText());
     }
 
+    /**
+     * Synchronizes the value of PrcRoseValueFunA with the data model, validates it and updates the field's validation
+     * message label.
+     */
     private void syncPrcRoseValue() {
         if (annualForecastGrossProfitModel.isEmptyField(this.PrcRoseValueFunA.getText())) {
             // set validation message
@@ -282,7 +368,10 @@ public class AnnualForecastGrossProfitController implements Initializable {
         logger.info("PrcRose change to {}", this.PrcRoseValueFunA.getText());
     }
 
-
+    /**
+     * Synchronizes the value of PrcNoirValueFunA with the data model, validates it and updates the field's validation
+     * message label.
+     */
     private void syncPrcNoirValue() {
         if (annualForecastGrossProfitModel.isEmptyField(this.PrcNoirValueFunA.getText())) {
             // set validation message
@@ -309,6 +398,10 @@ public class AnnualForecastGrossProfitController implements Initializable {
         logger.info("PrcNoir change to {}", this.PrcNoirValueFunA.getText());
     }
 
+    /**
+     * Synchronizes the value of FixedCostsValueFunA with the data model, validates it and updates the field's validation
+     * message label.
+     */
     private void syncFixedCostsValue() {
         if (annualForecastGrossProfitModel.isEmptyField(this.FixedCostsValueFunA.getText())) {
             // set validation message
@@ -335,7 +428,13 @@ public class AnnualForecastGrossProfitController implements Initializable {
         logger.info("FixedCosts change to {}", this.FixedCostsValueFunA.getText());
     }
 
-
+    /**
+     * Performs the abnormal situation validations and updates the FieldValidationErrorMessageFunA label accordingly.
+     * The validations are:
+     * w1: Insufficient production capacity to produce the optimal mix, please reduce or adjust the capacity of labor & grape volume!
+     * w2: Insufficient labor supplied to utilize the grape resource (less than 90%)!
+     * If both validations fail, it displays the concatenated error messages in the FieldValidationErrorMessageFunA label.
+     */
     private void abnormalSituationValidationsFunA(int [] opt_Litre) {
         final String errorMsg1 = "w1: Insufficient production capacity to produce the optimal mix, please reduce or adjust the capacity of\nlabor & grape volume!";
         final String errorMsg2 = "w2: Insufficient labor supplied to utilize the grape resource (less than 90%)!";
@@ -351,17 +450,18 @@ public class AnnualForecastGrossProfitController implements Initializable {
         }
     }
 
-    private boolean determineInsufficientProductionCapacityForOptimalMix() {
-        OptimalSalesRevenueModel optimalSalesRevenue = this.annualForecastGrossProfitModel.calculateOptimalProductionValue();
-        return this.annualForecastGrossProfitModel.wineProductionCapacityOverloadedOnGrape(optimalSalesRevenue.getOptimalLitresOfRose(), optimalSalesRevenue.getOptimalLitresOfNoir());
-    }
-
+    /**
+     * Determines if there is insufficient production capacity to produce the optimal mix of wines.
+     * @return {@code true} if there is insufficient production capacity, {@code false} otherwise.
+     */
     private boolean determineInsufficientLabourSupplyForSatisfiedGrapeResourceUtilization() {
         OptimalSalesRevenueModel optimalSalesRevenue = this.annualForecastGrossProfitModel.calculateOptimalProductionValue();
         return this.annualForecastGrossProfitModel.grapeResourceUtilizationIsInsufficientDueToInsufficientLabourSupplied(optimalSalesRevenue.getOptimalLitresOfRose(), optimalSalesRevenue.getOptimalLitresOfNoir(), this.annualForecastGrossProfitModel.getCapGrape());
     }
 
-
+    /**
+     * set the value again after clicking "run" button  for ensuring the model obtains the latest user input value.
+     */
     public void setValueAgain(){
         this.annualForecastGrossProfitModel.setWeekOfYear(Integer.parseInt(this.NumWeekValueFunA.getText()));
         this.annualForecastGrossProfitModel.setCapLabour(Integer.parseInt(this.CapLaborValueFunA.getText()));
@@ -372,11 +472,20 @@ public class AnnualForecastGrossProfitController implements Initializable {
 
     }
 
+    /**
+     * Returns to the main menu by loading the main menu FXML file "/frontend/applicationMainMenu.fxml".
+     * @throws IOException if there is an error loading the main menu FXML file
+     */
     @FXML
     void returnToMainFunA() throws IOException {
         Main.stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/frontend/applicationMainMenu.fxml")))));
     }
 
+    /**
+     * Runs the calculation based on the input values and updates the appropriate UI elements.
+     * If any required field is not filled, it displays an error message in the FieldValidationCheckDetailsFunA label
+     * and returns without executing the calculation.
+     */
     @FXML
     void runCalculationA(ActionEvent event) {
         logger.info("Input fields NumWeek={}, CapLabour={}, CapGrape={}, PrcRose={}, PrcNoir={}, FixedCosts={}",
@@ -402,6 +511,10 @@ public class AnnualForecastGrossProfitController implements Initializable {
         this.abnormalSituationValidationsFunA(opt_Litre);
     }
 
+    /**
+     * Calculates the optimal sales revenue based on the input values and displays the results in the appropriate UI elements.
+     * @return optimal litre of rose and noir
+     */
     private int [] calculateAndDisplayTotalGrossProfit() {
         OptimalSalesRevenueModel optimalSalesRevenue = this.annualForecastGrossProfitModel.calculateOptimalProductionValue();
         this.DisplayOptRoseValueFunA.setText(Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose()));
@@ -412,12 +525,18 @@ public class AnnualForecastGrossProfitController implements Initializable {
         float labor_rate=((this.annualForecastGrossProfitModel.getLABOUR_COST_RATE_PER_WEEK())/this.annualForecastGrossProfitModel.getSTANDARD_MAN_POWER_PER_HEAD()/60);
         float profit=(sale_revenue-(VCL*labor_rate)-this.annualForecastGrossProfitModel.getFixedCosts());
         this.DisplayTotalGrossProfitFunA.setText(this.convertToCommaSeparatedString(Math.round(profit)));
-        this.DisplayProfitMarginFunA.setText(Float.toString(this.roundToOneDp(profit/sale_revenue*100, 1)));
+        this.DisplayProfitMarginFunA.setText(Float.toString(this.roundToNDp(profit/sale_revenue*100, 1)));
         return new int[] {
                 optimalSalesRevenue.getOptimalLitresOfRose(),
                 optimalSalesRevenue.getOptimalLitresOfRose()
         };
     }
+
+    /**
+     * Initializes the controller with the appropriate listeners for each input field.
+     * @param url the location of the FXML file
+     * @param resourceBundle the resources for
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         NumWeekValueFunA.textProperty().addListener((Observable, oldValue, newValue) -> this.syncNumWeekValue());

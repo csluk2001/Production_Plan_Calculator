@@ -24,45 +24,133 @@ import src.main.java.Main;
 import src.main.java.models.OptimalSalesRevenueModel;
 import src.main.java.models.WeeklyReviewByRevenueAndBackordersModel;
 
+/**
+ * This class is a Controller for PPC1 Function_C GUI /resource/frontend/weeklyReviewByRevenueBackorders.fxml.
+ * It handles the logic of the UI components and communicates with the model to update the data.
+ * @author YIU, Ka Ho Alex GitHub id: AcupOfHappiness
+ * @version Java15
+ */
+
 public class WeeklyReviewByRevenueAndBackordersController implements Initializable{
+
+    /**
+     * The logger for debugging.
+     */
     final Logger logger = LoggerFactory.getLogger(getClass());
+
+    /**
+     * The "WeeklyReviewByRevenueAndBackordersModel" data model for this controller.
+     */
     private final WeeklyReviewByRevenueAndBackordersModel weeklyReviewByRevenueAndBackordersModel;
+
+    /**
+     * The IDs of the fields that should be locked while one field is being edited.
+     */
     private int[] fieldID;
     @FXML
+
+    /**
+     * The input field for the backorder volume of Rosé in litre.
+     */
     private TextField BkoNoirValueFunC;
+
+    /**
+     * The input field for the Backorder volume of P-Noir in litre.
+     */
     @FXML
     private TextField BkoRoseValueFunC;
+
+    /**
+     * The input field for the grape capacity.
+     */
     @FXML
     private TextField CapGrapeValueFunC;
+
+    /**
+     * The input label for the optimal noir wine production value.
+     */
     @FXML
     private TextField CapLaborValueFunC;
+
+    /**
+     * The label for displaying the result explanation of Backorder Fulfilment value.
+     */
     @FXML
     private Label DisplayBackorderFulfilmentMeaningFunC;
+
+    /**
+     * The label for displaying the result of the Backorder Fulfilment value (yes/no).
+     */
     @FXML
     private Label DisplayBackorderFulfilmentValueFunC;
+
+    /**
+     * The label for displaying the optimal noir wine production value.
+     */
     @FXML
     private Label DisplayOptNoirValueFunC;
+
+    /**
+     * The label for displaying the optimal rose wine production value.
+     */
     @FXML
     private Label DisplayOptRoseValueFunC;
+
+    /**
+     * The label for displaying the total revenue for optimal production of wine.
+     */
     @FXML
     private Label DisplayTotalRevenueValueFunC;
+
+    /**
+     * The label for displaying the total mixed of both optimal production of wine.
+     */
     @FXML
     private Label DisplayTotalValueFunC;
+
+    /**
+     * The label for displaying field validation check details.
+     */
     @FXML
     private Label FieldValidationCheckDetailsFunC;
+
+    /**
+     * The label for displaying field validation error messages.
+     */
     @FXML
     private Label FieldValidationErrorMessageFunC;
+
+    /**
+     * The input field for the WeekOfYear.
+     */
     @FXML
     private TextField NumYearValueFunC;
+
+    /**
+     * The input field for the price of the noir wine.
+     */
     @FXML
     private TextField PrcNoirValueFunC;
+
+    /**
+     * The input field for the price of the rose wine.
+     */
     @FXML
     private TextField PrcRoseValueFunC;
 
+    /**
+     * Constructor for the controller. Initializes the data model.
+     */
     public WeeklyReviewByRevenueAndBackordersController() {
         weeklyReviewByRevenueAndBackordersModel = new WeeklyReviewByRevenueAndBackordersModel();
     }
 
+    /**
+     * Converts an integer input to a comma-separated string.
+     *
+     * @param input the integer to convert
+     * @return the comma-separated string representation of the input
+     */
     public String convertToCommaSeparatedString(int input) {
         StringBuilder sb = new StringBuilder();
         String str = Integer.toString(Math.abs(input));
@@ -81,6 +169,10 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         return sb.reverse().toString();
     }
 
+    /**
+     * Checks if all the required fields are filled.
+     * @return {@code true} if all required fields are filled, {@code false} otherwise.
+     */
     private boolean checkAllFieldsFilledFunC() {
         return !(this.weeklyReviewByRevenueAndBackordersModel.getWeekOfYear() == Integer.MIN_VALUE ||
                 this.weeklyReviewByRevenueAndBackordersModel.getCapGrape() == Integer.MIN_VALUE ||
@@ -91,6 +183,12 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
                 this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir() == Integer.MIN_VALUE);
     }
 
+    /**
+     * Updates the FieldValidationCheckDetailsFunC label with the appropriate message based on the inputFieldID and valid flag.
+     *
+     * @param inputFieldID an integer representing the input field being validated
+     * @param valid a boolean flag indicating whether the input is correct is or not
+     */
     private void syncFieldValidationCheckDetails(int inputFieldID, boolean valid) {
         /*
             inputFieldID:
@@ -128,6 +226,9 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         }
     }
 
+    /**
+     * Enables the editing capabilities of all the fields and resets the fieldID array.
+     */
     private void releaseAllFields() {
         this.fieldID = new int[7];
         this.NumYearValueFunC.setEditable(true);
@@ -139,6 +240,9 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         this.BkoNoirValueFunC.setEditable(true);
     }
 
+    /**
+     * Disables the editing capabilities of all the fields except for FieldID 0.
+     */
     private void lockOtherFields() {
         for (int id : this.fieldID) {
             switch (id) {
@@ -153,6 +257,10 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         }
     }
 
+    /**
+     * This method synchronizes the value of the NumYearValueFunC text field with
+     * the weeklyReviewByRevenueAndBackordersModel's weekOfYear property.
+     */
     private void syncNumYearValue() {
         if (weeklyReviewByRevenueAndBackordersModel.isEmptyField(this.NumYearValueFunC.getText())) {
             // set validation message
@@ -178,6 +286,10 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         logger.info("NumYear change to {}", this.NumYearValueFunC.getText());
     }
 
+    /**
+     * Synchronizes the value of CapLabourValueFunC with the data model, validates it and updates the field's validation
+     * message label.
+     */
     private void syncCapLabourValue() {
         // numeric validation
         if (weeklyReviewByRevenueAndBackordersModel.isEmptyField(this.CapLaborValueFunC.getText())) {
@@ -205,6 +317,10 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         logger.info("CapLabor change to {}", this.CapLaborValueFunC.getText());
     }
 
+    /**
+     * Synchronizes the value of CapGrapeValueFunC with the data model, validates it and updates the field's validation
+     * message label.
+     */
     public void syncCapGrapeValue() {
         if (weeklyReviewByRevenueAndBackordersModel.isEmptyField(this.CapGrapeValueFunC.getText())) {
             // set validation message
@@ -231,6 +347,10 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         logger.info("NumYear change to {}", this.CapGrapeValueFunC.getText());
     }
 
+    /**
+     * Synchronizes the value of PrcRoseValueFunC with the data model, validates it and updates the field's validation
+     * message label.
+     */
     private void syncPrcRoseValue() {
         if (weeklyReviewByRevenueAndBackordersModel.isEmptyField(this.PrcRoseValueFunC.getText())) {
             // set validation message
@@ -257,6 +377,10 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         logger.info("PrcRose change to {}", this.PrcRoseValueFunC.getText());
     }
 
+    /**
+     * Synchronizes the value of PrcNoirValueFunC with the data model, validates it and updates the field's validation
+     * message label.
+     */
     private void syncPrcNoirValue() {
         if (weeklyReviewByRevenueAndBackordersModel.isEmptyField(this.PrcNoirValueFunC.getText())) {
             // set validation message
@@ -283,6 +407,10 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         logger.info("PrcNoir change to {}", this.PrcNoirValueFunC.getText());
     }
 
+    /**
+     * Synchronizes the value of BkoRoseValueFunC with the data model, validates it and updates the field's validation
+     * message label.
+     */
     private void syncBkoRoseValue() {
         if (weeklyReviewByRevenueAndBackordersModel.isEmptyField(this.BkoRoseValueFunC.getText())) {
             // set validation message
@@ -309,6 +437,10 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         logger.info("bkoRose change to {}", this.BkoRoseValueFunC.getText());
     }
 
+    /**
+     * Synchronizes the value of BkoNoirValueFunC with the data model, validates it and updates the field's validation
+     * message label.
+     */
     private void syncBkoNoirValue() {
         if (weeklyReviewByRevenueAndBackordersModel.isEmptyField(this.BkoNoirValueFunC.getText())) {
             // set validation message
@@ -335,6 +467,14 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         logger.info("bkoNoir change to {}", this.BkoNoirValueFunC.getText());
     }
 
+    /**
+     * Performs the abnormal situation validations and updates the FieldValidationErrorMessageFunA label accordingly.
+     * The validations are:
+     * w1: Insufficient production capacity to produce the optimal mix, please reduce or adjust the capacity of labor & grape volume!
+     * w2: Insufficient labor supplied to utilize the grape resource (less than 90%)!
+     * w3: According to company policy, ratio of backorder volume should not lower than 70% of the optimal production volume!
+     * If both validations fail, it displays the concatenated error messages in the FieldValidationErrorMessageFunC label.
+     */
     // Field Validations
     private void abnormalSituationValidationsFunC(int[] opt_litre) {
         final String errorMsg1 = "w1: Insufficient production capacity to produce the optimal mix, please reduce or adjust the capacity of\nlabor & grape volume!";
@@ -355,6 +495,9 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         this.FieldValidationErrorMessageFunC.setText(errorMsgConcat);
     }
 
+    /**
+     * set the value again after clicking "run" button  for ensuring the model obtains the latest user input value.
+     */
     public void setValueAgain(){
         this.weeklyReviewByRevenueAndBackordersModel.setWeekOfYear(Integer.parseInt(this.NumYearValueFunC.getText()));
         this.weeklyReviewByRevenueAndBackordersModel.setCapLabour(Integer.parseInt(this.CapLaborValueFunC.getText()));
@@ -364,11 +507,21 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         this.weeklyReviewByRevenueAndBackordersModel.setBackorderVolumeRose(Integer.parseInt(this.BkoRoseValueFunC.getText()));
         this.weeklyReviewByRevenueAndBackordersModel.setBackorderVolumeNoir(Integer.parseInt(this.BkoNoirValueFunC.getText()));
     }
+
+    /**
+     * Returns to the main menu by loading the main menu FXML file "/frontend/applicationMainMenu.fxml".
+     * @throws IOException if there is an error loading the main menu FXML file
+     */
     @FXML
     void returnToMainFunC() throws IOException {
          Main.stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/frontend/applicationMainMenu.fxml")))));
     }
 
+    /**
+     * Runs the calculation based on the input values and updates the appropriate UI elements.
+     * If any required field is not filled, it displays an error message in the FieldValidationCheckDetailsFunC label
+     * and returns without executing the calculation.
+     */
     @FXML
     void runCalculationFunC(ActionEvent event) {
         logger.info("Input fields NumYear={}, CapLabour={}, CapGrape={}, PrcRose={}, PrcNoir={}, BkoRose={}, BkoNoir={}",
@@ -395,6 +548,10 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         this.abnormalSituationValidationsFunC(opt_Litre);
     }
 
+    /**
+     * Calculates the optimal sales revenue based on the input values and displays the results in the appropriate UI elements.
+     * @return optimal litre of rose and noir, and original CapGrape (The value of CapGrape before producing Backorder wine).
+     */
     private int [] calculateAndDisplayOptimalSalesRevenueAndCheckBackordersProduction() {
         int[] remainingResourceAfterBackorders = this.weeklyReviewByRevenueAndBackordersModel.calculateLabourAndGrapeSurplus(this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeRose(),
                 this.weeklyReviewByRevenueAndBackordersModel.getBackorderVolumeNoir());
@@ -418,6 +575,11 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
         };
     }
 
+    /**
+     * Initializes the controller with the appropriate listeners for each input field.
+     * @param url the location of the FXML file
+     * @param resourceBundle the resources for
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         NumYearValueFunC.textProperty().addListener((Observable, oldValue, newValue) -> this.syncNumYearValue());
