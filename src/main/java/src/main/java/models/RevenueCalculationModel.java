@@ -41,6 +41,7 @@ public class RevenueCalculationModel {
     private float prcRose = Float.MIN_VALUE;
     private float prcNoir = Float.MIN_VALUE;
 
+    private int FixedCosts=Integer.MIN_VALUE;
     private int backorderVolumeRose = Integer.MIN_VALUE;
     private int backorderVolumeNoir = Integer.MIN_VALUE;
     private int remainingCapLabourAfterBackorder = Integer.MIN_VALUE;
@@ -64,6 +65,14 @@ public class RevenueCalculationModel {
         if (this.isNumeric(input) && isInteger(input) || this.isEmptyField(input)) {
             int numOfWeek = Integer.parseInt(input);
             return (2301 <= numOfWeek && numOfWeek <= 2315); // Week of the year should be in range from 2301 to 2315.
+        }
+        return false;
+    }
+
+    public boolean isValidNumWeek(String input) {
+        if (this.isNumeric(input) && isInteger(input) || this.isEmptyField(input)) {
+            int NumWeek = Integer.parseInt(input);
+            return (1 <= NumWeek && NumWeek <= 15);
         }
         return false;
     }
