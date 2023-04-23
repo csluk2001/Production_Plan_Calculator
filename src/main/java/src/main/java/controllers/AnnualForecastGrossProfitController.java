@@ -118,7 +118,7 @@ public class AnnualForecastGrossProfitController implements Initializable {
                 this.annualForecastGrossProfitModel.getCapLabour() == Integer.MIN_VALUE ||
                 this.annualForecastGrossProfitModel.getPrcRose() == Float.MIN_VALUE ||
                 this.annualForecastGrossProfitModel.getPrcNoir() == Float.MIN_VALUE ||
-                this.annualForecastGrossProfitModel.getFixedCosts() == Float.MIN_VALUE);
+                this.annualForecastGrossProfitModel.getFixedCosts() == Integer.MIN_VALUE);
     }
 
 
@@ -315,7 +315,7 @@ public class AnnualForecastGrossProfitController implements Initializable {
             this.syncFieldValidationCheckDetails(0, true);
             this.releaseAllFields();
             // store value into data model
-            annualForecastGrossProfitModel.setBackorderVolumeRose(Integer.MIN_VALUE);
+            annualForecastGrossProfitModel.setFixedCosts(Integer.MIN_VALUE);
             logger.info("FixedCosts change to null");
             return;
         }
@@ -324,14 +324,14 @@ public class AnnualForecastGrossProfitController implements Initializable {
         // validation message
         this.syncFieldValidationCheckDetails(6, validInput);
         if (!validInput) {
-            annualForecastGrossProfitModel.setBackorderVolumeRose(Integer.MIN_VALUE);
+            annualForecastGrossProfitModel.setFixedCosts(Integer.MIN_VALUE);
             this.fieldID = new int[]{1, 2, 3, 4, 5};
             this.lockOtherFields();
             return;
         }
         this.releaseAllFields();
         // store value into data model
-        annualForecastGrossProfitModel.setBackorderVolumeRose(Integer.parseInt(this.FixedCostsValueFunA.getText()));
+        annualForecastGrossProfitModel.setFixedCosts(Integer.parseInt(this.FixedCostsValueFunA.getText()));
         logger.info("FixedCosts change to {}", this.FixedCostsValueFunA.getText());
     }
 
