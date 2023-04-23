@@ -250,7 +250,7 @@ public class AnnualForecastGrossProfitController implements Initializable {
             return;
         }
         // set validation message
-        boolean validInput = annualForecastGrossProfitModel.isValidWeekOfYear(this.NumWeekValueFunA.getText());
+        boolean validInput = annualForecastGrossProfitModel.isValidNumWeek(this.NumWeekValueFunA.getText());
         this.syncFieldValidationCheckDetails(1, validInput);
         if (!validInput) {
             annualForecastGrossProfitModel.setWeekOfYear(Integer.MIN_VALUE);
@@ -439,7 +439,7 @@ public class AnnualForecastGrossProfitController implements Initializable {
     }
 
     @FXML
-    void runCalculationFunA(ActionEvent event) {
+    void runCalculationA(ActionEvent event) {
         logger.info("Input fields NumWeek={}, CapLabour={}, CapGrape={}, PrcRose={}, PrcNoir={}, FixedCosts={}",
                 this.annualForecastGrossProfitModel.getWeekOfYear(),
                 this.annualForecastGrossProfitModel.getCapLabour(),

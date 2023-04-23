@@ -68,4 +68,12 @@ public class RevenueCalculationModel {
         }
         return false;
     }
+
+    public boolean isValidNumWeek(String input) {
+        if (this.isNumeric(input) && isInteger(input) || this.isEmptyField(input)) {
+            int NumWeek = Integer.parseInt(input);
+            return (1 <= NumWeek && NumWeek <= 15);
+        }
+        return false;
+    }
 }
