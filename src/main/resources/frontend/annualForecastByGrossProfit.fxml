@@ -6,7 +6,7 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="580.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.main.java.controllers.AnnualForecastGrossProfitController">
-    <AnchorPane fx:id="AnnualForestByGrossProfitTitle" prefHeight="580.0" prefWidth="788.0" VBox.vgrow="ALWAYS">
+    <AnchorPane fx:id="AnnualForestByGrossProfitPortal" prefHeight="580.0" prefWidth="788.0" VBox.vgrow="ALWAYS">
         <!-- Title -->
         <Label fx:id="AnnualForecastByGrossProfitTitle" alignment="CENTER" layoutX="22.0" layoutY="14.0" prefHeight="35.0" prefWidth="744.0" text="A2.2.A Annual Forecast by Gross Profit">
         </Label>
@@ -90,7 +90,7 @@
 
         </AnchorPane>
     </AnchorPane>
-    <AnchorPane layoutX="18.0" layoutY="282.0" prefHeight="273.0" prefWidth="760.0">
+    <AnchorPane layoutX="18.0" layoutY="331.0" prefHeight="224.0" prefWidth="760.0">
         <children>
             <Line endX="657.0" layoutX="100.0" startX="-100.0" />
             <Label fx:id="FieldValidationTitleFunA" prefHeight="50.0" prefWidth="120.0" text="Field Validation: " />
