@@ -470,9 +470,9 @@ public class AnnualForecastGrossProfitController implements Initializable {
         this.DisplayTotalValueFunA.setText(Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose() + optimalSalesRevenue.getOptimalLitresOfNoir()));
         float sale_revenue= (optimalSalesRevenue.getOptimalSalesRevenue());
         int VCL=((optimalSalesRevenue.getOptimalLitresOfRose() * this.annualForecastGrossProfitModel.getROSE_CONSUMPTION_TO_MAKE_A_LITRE_OF_WINE_LABOUR())+(optimalSalesRevenue.getOptimalLitresOfNoir() * this.annualForecastGrossProfitModel.getNOIR_CONSUMPTION_TO_MAKE_A_LITRE_OF_WINE_LABOUR()));
-        float labor_rate=((this.annualForecastGrossProfitModel.getLABOUR_COST_RATE_PER_WEEK())/(this.annualForecastGrossProfitModel.getSTANDARD_MAN_POWER_PER_HEAD()*60));
-        float profit=sale_revenue-(VCL*labor_rate)-this.annualForecastGrossProfitModel.getFixedCosts();
-        this.DisplayTotalGrossProfitFunA.setText(Float.toString(profit));
+        float labor_rate=((this.annualForecastGrossProfitModel.getLABOUR_COST_RATE_PER_WEEK())/this.annualForecastGrossProfitModel.getSTANDARD_MAN_POWER_PER_HEAD()/60);
+        float profit=(sale_revenue-(VCL*labor_rate)-this.annualForecastGrossProfitModel.getFixedCosts());
+        this.DisplayTotalGrossProfitFunA.setText(Integer.toString(Math.round(profit)));
         this.DisplayProfitMarginFunA.setText(Float.toString(profit/sale_revenue*100));
 
     }
