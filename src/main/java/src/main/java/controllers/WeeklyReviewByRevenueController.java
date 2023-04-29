@@ -19,7 +19,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
- * This class is a Controller for PPC1 Calculator Function_B GUI GUI /resource/frontend/weeklyRevenue.fxml.
+ * This class is a Controller for PPC1 Calculator Function_B GUI /resource/frontend/weeklyRevenue.fxml.
  * @author LUK, Chun San Marco, Github id: csluk2001
  * @version  Java15
  */
@@ -60,7 +60,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
     private TextField CapGrapeValue;
 
     /**
-     * The input field for the price of the rose wine.
+     * The input field for the price of the rosé wine.
      */
     @FXML
     private TextField PrcRoseValue;
@@ -72,7 +72,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
     private TextField PrcNoirValue;
 
     /**
-     * The label for displaying the optimal rose wine production value.
+     * The label for displaying the optimal rosé wine production value.
      */
     @FXML
     private Label DisplayOptRoseValue;
@@ -392,10 +392,18 @@ public class WeeklyReviewByRevenueController implements Initializable {
         this.DisplayTotalValue.setText(this.weeklyReviewByRevenueModel.addFormatToInteger(optimalSalesRevenue.getOptimalLitresOfRose() + optimalSalesRevenue.getOptimalLitresOfNoir()));
         this.DisplayTotalRevenueValue.setText(this.weeklyReviewByRevenueModel.addFormatToInteger(optimalSalesRevenue.getOptimalSalesRevenue()));
         int[] labourAndGrapeSurplus = this.weeklyReviewByRevenueModel.calculateLabourAndGrapeSurplus(optimalSalesRevenue.getOptimalLitresOfRose(), optimalSalesRevenue.getOptimalLitresOfNoir());
+
+        if (labourAndGrapeSurplus[0] > 4) {
+            logger.error("Error at labourSurplus calculation {} > 4", labourAndGrapeSurplus[0]);
+        }
+        if (labourAndGrapeSurplus[1] > 5) {
+            logger.error("Error at grapeSurplus calculation {} > 5", labourAndGrapeSurplus[1]);
+        }
+
         // ii.f: If Sur_Labor > 0 but not enough to produce a bottle of any type of wines, set it to zero.
-        this.DisplayLabourSurplusValue.setText(labourAndGrapeSurplus[0] > 1 && labourAndGrapeSurplus[0] < 6 && labourAndGrapeSurplus[0] < 4 ? "0" : Integer.toString(labourAndGrapeSurplus[0]));
+        this.DisplayLabourSurplusValue.setText(labourAndGrapeSurplus[0] > 1 && labourAndGrapeSurplus[0] < 4 ? Integer.toString(labourAndGrapeSurplus[0]) : "0");
         // ii.g: If Sur_Grape > 0 but not enough to produce a bottle of any type of wines, set it to zero.
-        this.DisplayGrapeSurplusValue.setText(labourAndGrapeSurplus[1] > 1 && labourAndGrapeSurplus[1] < 12 && labourAndGrapeSurplus[1] < 5 ? "0" : Integer.toString(labourAndGrapeSurplus[1]));
+        this.DisplayGrapeSurplusValue.setText(labourAndGrapeSurplus[1] > 1 && labourAndGrapeSurplus[1] < 5 ? Integer.toString(labourAndGrapeSurplus[1]) : "0");
     }
 
     // Field Validations
@@ -439,13 +447,13 @@ public class WeeklyReviewByRevenueController implements Initializable {
         return this.weeklyReviewByRevenueModel.grapeResourceUtilizationIsInsufficientDueToInsufficientLabourSupplied(optimalSalesRevenue.getOptimalLitresOfRose(), optimalSalesRevenue.getOptimalLitresOfNoir(), this.weeklyReviewByRevenueModel.getCapGrape());
     }
 
-    @SneakyThrows
-    @Override
     /**
      * Initializes the controller with the appropriate listeners for each input field.
      * @param location the location of the FXML file
      * @param resources the resources for
      */
+    @SneakyThrows
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         NumYearValue.textProperty().addListener((Observable, oldValue, newValue) -> this.syncNumYearValue());
         CapLaborValue.textProperty().addListener((Observable, oldValue, newValue) -> this.syncCapLabourValue());
