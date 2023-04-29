@@ -53,25 +53,9 @@ public class WeeklyReviewByRevenueController implements Initializable {
         weeklyReviewByRevenueModel = new WeeklyReviewByRevenueModel();
     }
 
-    public String convertToCommaSeparatedString(int input) {
-        StringBuilder sb = new StringBuilder();
-        String str = Integer.toString(Math.abs(input));
-        int len = str.length();
-        int count = 0;
-        for (int i = len - 1; i >= 0; i--) {
-            sb.append(str.charAt(i));
-            count++;
-            if (count % 3 == 0 && i != 0) {
-                sb.append(",");
-            }
-        }
-        if (input < 0) {
-            sb.append("-");
-        }
-        return sb.reverse().toString();
-    }
     private void syncNumYearValue() {
-        if (weeklyReviewByRevenueModel.isEmptyField(this.NumYearValue.getText())) {
+        String input = this.NumYearValue.getText();
+        if (weeklyReviewByRevenueModel.isEmptyField(input)) {
             // set validation message
             this.syncFieldValidationCheckDetails(0, true);
             this.releaseAllFields();
@@ -81,7 +65,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
             return;
         }
         // numeric validation amd weekOfYear range validation 2301 - 2315
-        boolean validInput = weeklyReviewByRevenueModel.isValidWeekOfYear(this.NumYearValue.getText());
+        boolean validInput = weeklyReviewByRevenueModel.isValidWeekOfYear(input);
         // set validation message
         this.syncFieldValidationCheckDetails(1, validInput);
         if (!validInput) {
@@ -92,12 +76,13 @@ public class WeeklyReviewByRevenueController implements Initializable {
         }
         this.releaseAllFields();
         // store value into data model
-        weeklyReviewByRevenueModel.setWeekOfYear(Integer.parseInt(this.NumYearValue.getText()));
-        logger.info("NumYear change to {}", this.NumYearValue.getText());
+        weeklyReviewByRevenueModel.setWeekOfYear(Integer.parseInt(input));
+        logger.info("NumYear change to {}", input);
     }
 
     private void syncCapLabourValue() {
-        if (weeklyReviewByRevenueModel.isEmptyField(this.CapLaborValue.getText())) {
+        String input = this.CapLaborValue.getText();
+        if (weeklyReviewByRevenueModel.isEmptyField(input)) {
             // set validation message
             this.syncFieldValidationCheckDetails(0, true);
             this.releaseAllFields();
@@ -107,7 +92,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
             return;
         }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueModel.isInteger(this.CapLaborValue.getText());
+        boolean validInput = weeklyReviewByRevenueModel.isInteger(input);
         // set validation message
         this.syncFieldValidationCheckDetails(2, validInput);
         if (!validInput) {
@@ -118,12 +103,13 @@ public class WeeklyReviewByRevenueController implements Initializable {
         }
         this.releaseAllFields();
         // store value into data model
-        weeklyReviewByRevenueModel.setCapLabour(Integer.parseInt(this.CapLaborValue.getText()));
-        logger.info("CapLabor change to {}", this.CapLaborValue.getText());
+        weeklyReviewByRevenueModel.setCapLabour(Integer.parseInt(input));
+        logger.info("CapLabor change to {}", input);
     }
 
     public void syncCapGrapeValue() {
-        if (weeklyReviewByRevenueModel.isEmptyField(this.CapGrapeValue.getText())) {
+        String input = this.CapGrapeValue.getText();
+        if (weeklyReviewByRevenueModel.isEmptyField(input)) {
             // set validation message
             this.syncFieldValidationCheckDetails(0, true);
             this.releaseAllFields();
@@ -133,7 +119,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
             return;
         }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueModel.isInteger(this.CapGrapeValue.getText());
+        boolean validInput = weeklyReviewByRevenueModel.isInteger(input);
         // set validation message
         this.syncFieldValidationCheckDetails(3, validInput);
         if (!validInput) {
@@ -144,12 +130,13 @@ public class WeeklyReviewByRevenueController implements Initializable {
         }
         this.releaseAllFields();
         // store value into data model
-        weeklyReviewByRevenueModel.setCapGrape(Integer.parseInt(this.CapGrapeValue.getText()));
-        logger.info("CapGrape change to {}", this.CapGrapeValue.getText());
+        weeklyReviewByRevenueModel.setCapGrape(Integer.parseInt(input));
+        logger.info("CapGrape change to {}", input);
     }
 
     private void syncPrcRoseValue() {
-        if (weeklyReviewByRevenueModel.isEmptyField(this.PrcRoseValue.getText())) {
+        String input = this.PrcRoseValue.getText();
+        if (weeklyReviewByRevenueModel.isEmptyField(input)) {
             // set validation message
             this.syncFieldValidationCheckDetails(0, true);
             this.releaseAllFields();
@@ -159,7 +146,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
             return;
         }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueModel.isNumeric(this.PrcRoseValue.getText());
+        boolean validInput = weeklyReviewByRevenueModel.isNumeric(input);
         // set validation message
         this.syncFieldValidationCheckDetails(4, validInput);
         if (!validInput) {
@@ -170,12 +157,13 @@ public class WeeklyReviewByRevenueController implements Initializable {
         }
         this.releaseAllFields();
         // store value into data model
-        weeklyReviewByRevenueModel.setPrcRose(Float.parseFloat(this.PrcRoseValue.getText()));
-        logger.info("PrcRose change to {}", this.PrcRoseValue.getText());
+        weeklyReviewByRevenueModel.setPrcRose(Float.parseFloat(input));
+        logger.info("PrcRose change to {}", input);
     }
 
     private void syncPrcNoirValue() {
-        if (weeklyReviewByRevenueModel.isEmptyField(this.PrcNoirValue.getText())) {
+        String input = this.PrcNoirValue.getText();
+        if (weeklyReviewByRevenueModel.isEmptyField(input)) {
             // set validation message
             this.syncFieldValidationCheckDetails(0, true);
             this.releaseAllFields();
@@ -185,7 +173,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
             return;
         }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueModel.isNumeric(this.PrcNoirValue.getText());
+        boolean validInput = weeklyReviewByRevenueModel.isNumeric(input);
         // validation message
         this.syncFieldValidationCheckDetails(5, validInput);
         if (!validInput) {
@@ -196,8 +184,8 @@ public class WeeklyReviewByRevenueController implements Initializable {
         }
         this.releaseAllFields();
         // store value into data model
-        weeklyReviewByRevenueModel.setPrcNoir(Float.parseFloat(this.PrcNoirValue.getText()));
-        logger.info("PrcNoir change to {}", this.PrcNoirValue.getText());
+        weeklyReviewByRevenueModel.setPrcNoir(Float.parseFloat(input));
+        logger.info("PrcNoir change to {}", input);
     }
 
     private void syncFieldValidationCheckDetails(int inputFieldID, boolean valid) {
@@ -210,22 +198,17 @@ public class WeeklyReviewByRevenueController implements Initializable {
                 5) Prc_Noir
          */
         switch (inputFieldID) {
-            case 1 :
+            case 1 ->
                     this.FieldValidationCheckDetails.setText(valid ? "2301 <= WeekOfYear <= 2315" : "WeekOfYear should be in range of 2301 to 2315");
-                    break;
-            case 2 :
+            case 2 ->
                     this.FieldValidationCheckDetails.setText(valid ? "Cap_Labour is Integer" : "Cap_Labour is not Numeric or Integer");
-                    break;
-            case 3 :
+            case 3 ->
                     this.FieldValidationCheckDetails.setText(valid ? "Cap_Grape is Integer" : "Cap_Grape is not Numeric or Integer");
-                    break;
-            case 4 :
+            case 4 ->
                     this.FieldValidationCheckDetails.setText(valid ? "Prc_Rose is Numeric" : "Prc_Rose is not Numeric");
-                    break;
-            case 5 :
+            case 5 ->
                     this.FieldValidationCheckDetails.setText(valid ? "Prc_Noir is Numeric" : "Prc_Noir is not Numeric");
-                    break;
-            default : this.FieldValidationCheckDetails.setText("");
+            default -> this.FieldValidationCheckDetails.setText("");
         }
     }
 
@@ -268,6 +251,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
         );
 
         if (!this.checkAllFieldsFilled()) {
+            this.FieldValidationErrorMessage.setText("Required fields are not filled yet!");
             logger.error("Fields are not fully filled yet!");
             return;
         }
@@ -286,10 +270,10 @@ public class WeeklyReviewByRevenueController implements Initializable {
 
     private void calculateAndDisplayOptimalSalesRevenue() {
         OptimalSalesRevenueModel optimalSalesRevenue = this.weeklyReviewByRevenueModel.calculateOptimalProductionValue();
-        this.DisplayOptRoseValue.setText(Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose()));
-        this.DisplayOptNoirValue.setText(Integer.toString(optimalSalesRevenue.getOptimalLitresOfNoir()));
-        this.DisplayTotalValue.setText(Integer.toString(optimalSalesRevenue.getOptimalLitresOfRose() + optimalSalesRevenue.getOptimalLitresOfNoir()));
-        this.DisplayTotalRevenueValue.setText(this.convertToCommaSeparatedString(optimalSalesRevenue.getOptimalSalesRevenue()));
+        this.DisplayOptRoseValue.setText(String.format(this.weeklyReviewByRevenueModel.addFormatToInteger(optimalSalesRevenue.getOptimalLitresOfRose())));
+        this.DisplayOptNoirValue.setText(String.format(this.weeklyReviewByRevenueModel.addFormatToInteger(optimalSalesRevenue.getOptimalLitresOfNoir())));
+        this.DisplayTotalValue.setText(this.weeklyReviewByRevenueModel.addFormatToInteger(optimalSalesRevenue.getOptimalLitresOfRose() + optimalSalesRevenue.getOptimalLitresOfNoir()));
+        this.DisplayTotalRevenueValue.setText(this.weeklyReviewByRevenueModel.addFormatToInteger(optimalSalesRevenue.getOptimalSalesRevenue()));
         int[] labourAndGrapeSurplus = this.weeklyReviewByRevenueModel.calculateLabourAndGrapeSurplus(optimalSalesRevenue.getOptimalLitresOfRose(), optimalSalesRevenue.getOptimalLitresOfNoir());
         // ii.f: If Sur_Labor > 0 but not enough to produce a bottle of any type of wines, set it to zero.
         this.DisplayLabourSurplusValue.setText(labourAndGrapeSurplus[0] > 1 && labourAndGrapeSurplus[0] < 6 && labourAndGrapeSurplus[0] < 4 ? "0" : Integer.toString(labourAndGrapeSurplus[0]));
