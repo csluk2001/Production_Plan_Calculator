@@ -19,7 +19,7 @@ public class WeeklyReviewByRevenueImpl {
     final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
-     * The consumption of labour required to produce one litre of Rose wine from user input.
+     * The consumption of labour required to produce one litre of Rosé wine from user input.
      */
     private final int labourConsumptionOfRose;
 
@@ -29,7 +29,7 @@ public class WeeklyReviewByRevenueImpl {
     private final int labourConsumptionOfNoir;
 
     /**
-     * The consumption of grapes required to produce one litre of Rose wine from user input.
+     * The consumption of grapes required to produce one litre of Rosé wine from user input.
      */
     private final int grapeConsumptionOfRose;
 
@@ -41,9 +41,9 @@ public class WeeklyReviewByRevenueImpl {
     /**
      * Constructs an instance of the {@link WeeklyReviewByRevenueImpl} class with the specified labour and grape consumption values.
      *
-     * @param labourConsumptionOfRose the consumption of labour required to produce one litre of Rose wine
+     * @param labourConsumptionOfRose the consumption of labour required to produce one litre of Rosé wine
      * @param labourConsumptionOfNoir the consumption of labour required to produce one litre of Noir wine
-     * @param grapeConsumptionOfRose  the consumption of grapes required to produce one litre of Rose wine
+     * @param grapeConsumptionOfRose  the consumption of grapes required to produce one litre of Rosé wine
      * @param grapeConsumptionOfNoir  the consumption of grapes required to produce one litre of Noir wine
      */
     public WeeklyReviewByRevenueImpl(int labourConsumptionOfRose, int labourConsumptionOfNoir, int grapeConsumptionOfRose, int grapeConsumptionOfNoir) {
@@ -56,7 +56,7 @@ public class WeeklyReviewByRevenueImpl {
     /**
      * Calculates the optimal mix of wines based on the prices of Rose and Noir wines, and labour and grape capacity by integer linear programming.
      *
-     * @param PrcRosePrice the price of one litre of Rose wine
+     * @param PrcRosePrice the price of one litre of Rosé wine
      * @param PrcNoirPrice the price of one litre of Noir wine
      * @param capLabour    the capacity of labour
      * @param capGrape     the capacity of grape
@@ -103,7 +103,7 @@ public class WeeklyReviewByRevenueImpl {
     /**
      * Calculates the surplus of labour and grape resources after production
      *
-     * @param optimalLitresOfRose The optimal litres of rose wine
+     * @param optimalLitresOfRose The optimal litres of Rosé wine
      * @param optimalLitresOfNoir The optimal litres of noir wine
      * @param capacityOfLabour    The production capacity of labour
      * @param capacityOfGrape     The production capacity of grape
@@ -123,7 +123,7 @@ public class WeeklyReviewByRevenueImpl {
     /**
      * Checks if the wine production capacity is overloaded on grape
      *
-     * @param optRose                   The optimal litres of rose wine
+     * @param optRose                   The optimal litres of Rosé wine
      * @param optNoir                   The optimal litres of noir wine
      * @param MAX_PRODUCTION_CAPACITY_PER_WEEK The maximum production capacity per week
      * @return {@code true} if the actual production capacity is less than the sum of optimal litres of rose and noir wines, {@code false} otherwise
@@ -136,7 +136,7 @@ public class WeeklyReviewByRevenueImpl {
     /**
      * Checks if the grape resource utilization is insufficient due to insufficient labour supplied
      *
-     * @param optRose  The optimal litres of rose wine
+     * @param optRose  The optimal litres of Rosé wine
      * @param optNoir  The optimal litres of noir wine
      * @param capGrape The production capacity of grape
      * @return {@code true} if the consumption of grapes is less than 90% of the given capacity due to insufficient labour supplied, {@code false} otherwise
