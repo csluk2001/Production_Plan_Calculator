@@ -401,9 +401,9 @@ public class WeeklyReviewByRevenueController implements Initializable {
         }
 
         // ii.f: If Sur_Labor > 0 but not enough to produce a bottle of any type of wines, set it to zero.
-        this.DisplayLabourSurplusValue.setText(labourAndGrapeSurplus[0] > 1 && labourAndGrapeSurplus[0] < 4 ? Integer.toString(labourAndGrapeSurplus[0]) : "0");
+        this.DisplayLabourSurplusValue.setText(labourAndGrapeSurplus[0] > 0 && labourAndGrapeSurplus[0] < 5 ? "0" : Integer.toString(labourAndGrapeSurplus[0]));
         // ii.g: If Sur_Grape > 0 but not enough to produce a bottle of any type of wines, set it to zero.
-        this.DisplayGrapeSurplusValue.setText(labourAndGrapeSurplus[1] > 1 && labourAndGrapeSurplus[1] < 5 ? Integer.toString(labourAndGrapeSurplus[1]) : "0");
+        this.DisplayGrapeSurplusValue.setText(labourAndGrapeSurplus[1] > 0 && labourAndGrapeSurplus[1] < 4 ? "0" : Integer.toString(labourAndGrapeSurplus[1]));
     }
 
     // Field Validations
