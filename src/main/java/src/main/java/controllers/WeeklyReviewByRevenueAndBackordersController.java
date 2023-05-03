@@ -205,22 +205,22 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
                     this.FieldValidationCheckDetailsFunC.setText(valid ? "2301 <= WeekOfYear <= 2315" : "WeekOfYear should be in range of 2301 to 2315");
                     break;
             case 2 :
-                    this.FieldValidationCheckDetailsFunC.setText(valid ? "Cap_Labour is Numeric" : "Cap_Labour is not Numeric or integer");
+                    this.FieldValidationCheckDetailsFunC.setText(valid ? "Cap_Labour is Numeric" : "Cap_Labour is not Numeric or Integer >= 1");
                     break;
             case 3 :
-                    this.FieldValidationCheckDetailsFunC.setText(valid ? "Cap_Grape is Numeric" : "Cap_Grape is not Numeric or integer");
+                    this.FieldValidationCheckDetailsFunC.setText(valid ? "Cap_Grape is Numeric" : "Cap_Grape is not Numeric or Integer >= 1");
                     break;
             case 4 :
-                    this.FieldValidationCheckDetailsFunC.setText(valid ? "Prc_Rose is Numeric" : "Prc_Rose is not Numeric");
+                    this.FieldValidationCheckDetailsFunC.setText(valid ? "Prc_Rose is Numeric" : "Prc_Rose is not Numeric or Integer >= 1");
                     break;
             case 5 :
-                    this.FieldValidationCheckDetailsFunC.setText(valid ? "Prc_Noir is Numeric" : "Prc_Noir is not Numeric");
+                    this.FieldValidationCheckDetailsFunC.setText(valid ? "Prc_Noir is Numeric" : "Prc_Noir is not Numeric or Integer >= 1");
                     break;
             case 6 :
-                    this.FieldValidationCheckDetailsFunC.setText(valid ? "Bko_Rose is Numeric" : "Bko_Rose is not Numeric or Integer");
+                    this.FieldValidationCheckDetailsFunC.setText(valid ? "Bko_Rose is Numeric" : "Bko_Rose is not Numeric or Integer >= 0");
                     break;
             case 7 :
-                    this.FieldValidationCheckDetailsFunC.setText(valid ? "Bko_Noir is Numeric" : "Bko_Noir is not Numeric or Integer");
+                    this.FieldValidationCheckDetailsFunC.setText(valid ? "Bko_Noir is Numeric" : "Bko_Noir is not Numeric or Integer >= 0");
                     break;
             default : this.FieldValidationCheckDetailsFunC.setText("");
         }
@@ -302,7 +302,7 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
             return;
         }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueAndBackordersModel.isInteger(this.CapLaborValueFunC.getText());
+        boolean validInput = weeklyReviewByRevenueAndBackordersModel.isInteger(this.CapLaborValueFunC.getText()) && weeklyReviewByRevenueAndBackordersModel.isGreaterThanOne(this.CapLaborValueFunC.getText());
         // set validation message
         this.syncFieldValidationCheckDetails(2, validInput);
         if (!validInput) {
@@ -332,7 +332,7 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
             return;
         }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueAndBackordersModel.isInteger(this.CapGrapeValueFunC.getText());
+        boolean validInput = weeklyReviewByRevenueAndBackordersModel.isInteger(this.CapGrapeValueFunC.getText()) && weeklyReviewByRevenueAndBackordersModel.isGreaterThanOne(this.CapGrapeValueFunC.getText());
         // set validation message
         this.syncFieldValidationCheckDetails(3, validInput);
         if (!validInput) {
@@ -362,7 +362,7 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
             return;
         }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueAndBackordersModel.isNumeric(this.PrcRoseValueFunC.getText());
+        boolean validInput = weeklyReviewByRevenueAndBackordersModel.isNumeric(this.PrcRoseValueFunC.getText()) && weeklyReviewByRevenueAndBackordersModel.isGreaterThanOne(this.PrcRoseValueFunC.getText());
         // set validation message
         this.syncFieldValidationCheckDetails(4, validInput);
         if (!validInput) {
@@ -392,7 +392,7 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
             return;
         }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueAndBackordersModel.isNumeric(this.PrcNoirValueFunC.getText());
+        boolean validInput = weeklyReviewByRevenueAndBackordersModel.isNumeric(this.PrcNoirValueFunC.getText()) && weeklyReviewByRevenueAndBackordersModel.isGreaterThanOne(this.PrcNoirValueFunC.getText());
         // validation message
         this.syncFieldValidationCheckDetails(5, validInput);
         if (!validInput) {
@@ -422,7 +422,7 @@ public class WeeklyReviewByRevenueAndBackordersController implements Initializab
             return;
         }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueAndBackordersModel.isInteger(this.BkoRoseValueFunC.getText());
+        boolean validInput = weeklyReviewByRevenueAndBackordersModel.isInteger(this.BkoRoseValueFunC.getText()) && weeklyReviewByRevenueAndBackordersModel.isGreaterThanZero(this.BkoRoseValueFunC.getText());
         // validation message
         this.syncFieldValidationCheckDetails(6, validInput);
         if (!validInput) {
