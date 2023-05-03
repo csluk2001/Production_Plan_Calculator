@@ -169,7 +169,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
             return;
         }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueModel.isInteger(input);
+        boolean validInput = weeklyReviewByRevenueModel.isInteger(input) && weeklyReviewByRevenueModel.isGreaterThanOne(input);
         // set validation message
         this.syncFieldValidationCheckDetails(2, validInput);
         if (!validInput) {
@@ -200,7 +200,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
             return;
         }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueModel.isInteger(input);
+        boolean validInput = weeklyReviewByRevenueModel.isInteger(input) && weeklyReviewByRevenueModel.isGreaterThanOne(input);
         // set validation message
         this.syncFieldValidationCheckDetails(3, validInput);
         if (!validInput) {
@@ -231,7 +231,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
             return;
         }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueModel.isNumeric(input);
+        boolean validInput = weeklyReviewByRevenueModel.isNumeric(input) && weeklyReviewByRevenueModel.isGreaterThanOne(input);
         // set validation message
         this.syncFieldValidationCheckDetails(4, validInput);
         if (!validInput) {
@@ -262,7 +262,7 @@ public class WeeklyReviewByRevenueController implements Initializable {
             return;
         }
         // numeric validation
-        boolean validInput = weeklyReviewByRevenueModel.isNumeric(input);
+        boolean validInput = weeklyReviewByRevenueModel.isNumeric(input) && weeklyReviewByRevenueModel.isGreaterThanOne(input);
         // validation message
         this.syncFieldValidationCheckDetails(5, validInput);
         if (!validInput) {
@@ -296,13 +296,13 @@ public class WeeklyReviewByRevenueController implements Initializable {
             case 1 ->
                     this.FieldValidationCheckDetails.setText(valid ? "2301 <= WeekOfYear <= 2315" : "WeekOfYear should be in range of 2301 to 2315");
             case 2 ->
-                    this.FieldValidationCheckDetails.setText(valid ? "Cap_Labour is Integer" : "Cap_Labour is not Numeric or Integer");
+                    this.FieldValidationCheckDetails.setText(valid ? "Cap_Labour is Integer" : "Cap_Labour is not Numeric or Integer >= 1");
             case 3 ->
-                    this.FieldValidationCheckDetails.setText(valid ? "Cap_Grape is Integer" : "Cap_Grape is not Numeric or Integer");
+                    this.FieldValidationCheckDetails.setText(valid ? "Cap_Grape is Integer" : "Cap_Grape is not Numeric or Integer >= 1");
             case 4 ->
-                    this.FieldValidationCheckDetails.setText(valid ? "Prc_Rose is Numeric" : "Prc_Rose is not Numeric");
+                    this.FieldValidationCheckDetails.setText(valid ? "Prc_Rose is Numeric" : "Prc_Rose is not Numeric >= 1");
             case 5 ->
-                    this.FieldValidationCheckDetails.setText(valid ? "Prc_Noir is Numeric" : "Prc_Noir is not Numeric");
+                    this.FieldValidationCheckDetails.setText(valid ? "Prc_Noir is Numeric" : "Prc_Noir is not Numeric >= 1");
             default -> this.FieldValidationCheckDetails.setText("");
         }
     }
