@@ -165,6 +165,19 @@ public class RevenueCalculationModel {
     }
 
     /**
+     * Checks if the given input is greater or equal to 0.
+     * @param input The input string to be validated.
+     * @return A boolean value indicating if the input is greater or equal to 0.
+     */
+    public boolean isGreaterThanZero(String input) {
+        if (this.isInteger(input)) {
+            return (Integer.parseInt(input) >= 0);
+        } else {
+            return (Float.parseFloat(input) >= 0);
+        }
+    }
+
+    /**
      * Checks if the given input is a valid week of the year.
      * @param input The input string to be validated.
      * @return A boolean value indicating if the input is a valid week of the year.
