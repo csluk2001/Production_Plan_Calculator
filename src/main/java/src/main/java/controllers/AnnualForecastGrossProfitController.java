@@ -201,19 +201,19 @@ public class AnnualForecastGrossProfitController implements Initializable {
                 this.FieldValidationCheckDetailsFunA.setText(valid ? "1 <= Number of week <= 15" : "Number of week should be in range of 1 to 15");
                 break;
             case 2 :
-                this.FieldValidationCheckDetailsFunA.setText(valid ? "Cap_Labour is Numeric" : "Cap_Labour is not Numeric or integer");
+                this.FieldValidationCheckDetailsFunA.setText(valid ? "Cap_Labour is Numeric" : "Cap_Labour is not Numeric or Integer >= 1");
                 break;
             case 3 :
-                this.FieldValidationCheckDetailsFunA.setText(valid ? "Cap_Grape is Numeric" : "Cap_Grape is not Numeric or integer");
+                this.FieldValidationCheckDetailsFunA.setText(valid ? "Cap_Grape is Numeric" : "Cap_Grape is not Numeric or Integer >= 1");
                 break;
             case 4 :
-                this.FieldValidationCheckDetailsFunA.setText(valid ? "Prc_Rose is Numeric" : "Prc_Rose is not Numeric");
+                this.FieldValidationCheckDetailsFunA.setText(valid ? "Prc_Rose is Numeric" : "Prc_Rose is not Numeric or value >= 1");
                 break;
             case 5 :
-                this.FieldValidationCheckDetailsFunA.setText(valid ? "Prc_Noir is Numeric" : "Prc_Noir is not Numeric");
+                this.FieldValidationCheckDetailsFunA.setText(valid ? "Prc_Noir is Numeric" : "Prc_Noir is not Numeric or value >= 1");
                 break;
             case 6 :
-                this.FieldValidationCheckDetailsFunA.setText(valid ? "Fixed_Costs is Numeric" : "Fixed_Costs is not Numeric or Integer");
+                this.FieldValidationCheckDetailsFunA.setText(valid ? "Fixed_Costs is Numeric" : "Fixed_Costs is not Numeric or Integer >= 1");
                 break;
             default : this.FieldValidationCheckDetailsFunA.setText("");
         }
@@ -293,7 +293,7 @@ public class AnnualForecastGrossProfitController implements Initializable {
             return;
         }
         // numeric validation
-        boolean validInput = annualForecastGrossProfitModel.isInteger(this.CapLaborValueFunA.getText());
+        boolean validInput = annualForecastGrossProfitModel.isInteger(this.CapLaborValueFunA.getText()) && annualForecastGrossProfitModel.isGreaterThanOne(this.CapLaborValueFunA.getText());
         // set validation message
         this.syncFieldValidationCheckDetails(2, validInput);
         if (!validInput) {
@@ -323,7 +323,7 @@ public class AnnualForecastGrossProfitController implements Initializable {
             return;
         }
         // numeric validation
-        boolean validInput = annualForecastGrossProfitModel.isInteger(this.CapGrapeValueFunA.getText());
+        boolean validInput = annualForecastGrossProfitModel.isInteger(this.CapGrapeValueFunA.getText()) && annualForecastGrossProfitModel.isGreaterThanOne(this.CapGrapeValueFunA.getText());
         // set validation message
         this.syncFieldValidationCheckDetails(3, validInput);
         if (!validInput) {
@@ -353,7 +353,7 @@ public class AnnualForecastGrossProfitController implements Initializable {
             return;
         }
         // numeric validation
-        boolean validInput = annualForecastGrossProfitModel.isNumeric(this.PrcRoseValueFunA.getText());
+        boolean validInput = annualForecastGrossProfitModel.isNumeric(this.PrcRoseValueFunA.getText()) && annualForecastGrossProfitModel.isGreaterThanOne(this.PrcRoseValueFunA.getText());
         // set validation message
         this.syncFieldValidationCheckDetails(4, validInput);
         if (!validInput) {
@@ -383,7 +383,7 @@ public class AnnualForecastGrossProfitController implements Initializable {
             return;
         }
         // numeric validation
-        boolean validInput = annualForecastGrossProfitModel.isNumeric(this.PrcNoirValueFunA.getText());
+        boolean validInput = annualForecastGrossProfitModel.isNumeric(this.PrcNoirValueFunA.getText()) && annualForecastGrossProfitModel.isGreaterThanOne(this.PrcNoirValueFunA.getText());
         // validation message
         this.syncFieldValidationCheckDetails(5, validInput);
         if (!validInput) {
@@ -413,7 +413,7 @@ public class AnnualForecastGrossProfitController implements Initializable {
             return;
         }
         // numeric validation
-        boolean validInput = annualForecastGrossProfitModel.isInteger(this.FixedCostsValueFunA.getText());
+        boolean validInput = annualForecastGrossProfitModel.isInteger(this.FixedCostsValueFunA.getText()) && annualForecastGrossProfitModel.isGreaterThanOne(this.FixedCostsValueFunA.getText());
         // validation message
         this.syncFieldValidationCheckDetails(6, validInput);
         if (!validInput) {
